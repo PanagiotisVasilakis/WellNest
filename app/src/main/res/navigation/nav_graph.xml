@@ -9,5 +9,4 @@
         android:name="com.example.wellnest.DailyStateFragment"
         android:label="Daily State"
         tools:layout="@layout/fragment_daily_state" />
-    <!-- Add other fragments here -->
 </navigation>
