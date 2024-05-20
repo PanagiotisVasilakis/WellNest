@@ -1,0 +1,7 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/nav_daily_state"
+        android:icon="@drawable/ic_menu_camera"
+        android:title="Daily State" />
+    <!-- Add other menu items here -->
+</menu>
