@@ -3,11 +3,11 @@ plugins {
 }
 
 android {
-    namespace = "myapplication"
+    namespace = "myapplication.pages"
     compileSdk = 34
 
     defaultConfig {
-        applicationId = "myapplication"
+        applicationId = "myapplication.pages"
         minSdk = 29
         targetSdk = 34
         versionCode = 1
