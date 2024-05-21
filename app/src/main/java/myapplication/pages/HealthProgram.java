@@ -8,8 +8,11 @@ import android.view.ViewGroup;
 
 public class HealthProgram extends Fragment {
 
+    private HealthProgramClass healthProgramClass;
+
     public HealthProgram() {
         // Required empty public constructor
+        healthProgramClass = new HealthProgramClass();
     }
 
     @Override
@@ -36,30 +39,32 @@ public class HealthProgram extends Fragment {
     }
 
 
-    // Operations for Health Program
-    public void calculateBMI() {
-        // Implementation here
-    }
+    // 3. Health Program class
+    public class HealthProgramClass {
+        // Operations for Health Program
+        public void calculateBMI() {
+            // Implementation here
+        }
 
-    public void saveBMI() {
-        // Implementation here
-    }
+        public void saveBMI() {
+            // Implementation here
+        }
 
-    public void getWorkoutProgram() {
-        // Implementation here
-    }
+        public void getWorkoutProgram() {
+            // Implementation here
+        }
 
-    public void showProgram() {
-        // Implementation here
-    }
+        public void showProgram() {
+            // Implementation here
+        }
 
-    // Operations for Edit Category Progress
-    public void getHealthProgram() {
-        // Implementation here
-    }
+        public void getHealthProgram() {
+            // Implementation here
+        }
 
-    public void showSubcategory() {
-        // Implementation here
+        public void showSubcategory() {
+            // Implementation here
+        }
     }
 
     public class Program {

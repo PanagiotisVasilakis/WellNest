@@ -8,8 +8,11 @@ import android.view.ViewGroup;
 
 public class EditCategoryProgress extends Fragment {
 
+    private HealthProgram.HealthProgramClass healthProgramC;
+
     public EditCategoryProgress() {
-        // Required empty public constructor
+        HealthProgram healthProgram = new HealthProgram();
+        healthProgramC = healthProgram.new HealthProgramClass();
     }
 
     @Override
@@ -18,7 +21,6 @@ public class EditCategoryProgress extends Fragment {
         return inflater.inflate(R.layout.fragment_edit_category_progress, container, false);
     }
 
-    // 15. Subcategory
     public class Subcategory {
         // Operations for Edit Category Progress
         public void getSubcategory() {
@@ -42,12 +44,10 @@ public class EditCategoryProgress extends Fragment {
         }
     }
 
-    // 16. Progress Updated
     public class ProgressUpdated {
         // Operations for Edit Category Progress
     }
 
-    // 17. Goal Reached
     public class GoalReached {
         // Operations for Edit Category Progress
     }
