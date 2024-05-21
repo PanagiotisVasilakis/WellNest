@@ -6,11 +6,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-public class HealthProgram extends Fragment {
+public class HealthProgramFragment extends Fragment {
 
     private HealthProgramClass healthProgramClass;
 
-    public HealthProgram() {
+    public HealthProgramFragment() {
         // Required empty public constructor
         healthProgramClass = new HealthProgramClass();
     }

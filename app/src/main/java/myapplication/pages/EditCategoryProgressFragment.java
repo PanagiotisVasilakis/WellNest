@@ -6,12 +6,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-public class EditCategoryProgress extends Fragment {
+public class EditCategoryProgressFragment extends Fragment {
 
-    private HealthProgram.HealthProgramClass healthProgramC;
+    private HealthProgramFragment.HealthProgramClass healthProgramC;
 
-    public EditCategoryProgress() {
-        HealthProgram healthProgram = new HealthProgram();
+    public EditCategoryProgressFragment() {
+        HealthProgramFragment healthProgram = new HealthProgramFragment();
         healthProgramC = healthProgram.new HealthProgramClass();
     }
 

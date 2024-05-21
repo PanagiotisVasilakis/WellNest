@@ -6,13 +6,18 @@
 
     <fragment
         android:id="@+id/nav_daily_state"
-        android:name="myapplication.pages.HealthProgram"
+        android:name="myapplication.pages.HealthProgramFragment"
         android:label="Daily State"
         tools:layout="@layout/fragment_health_program" />
     <fragment
         android:id="@+id/nav_edit_category_progress"
-        android:name="myapplication.pages.EditCategoryProgress"
+        android:name="myapplication.pages.EditCategoryProgressFragment"
         android:label="Edit Category Progress"
         tools:layout="@layout/fragment_edit_category_progress" />
 
+    <fragment
+        android:id="@+id/nav_new_vaccines"
+        android:name="myapplication.pages.NewVaccinesFragment"
+        android:label="New Vaccines"
+        tools:layout="@layout/fragment_new_vaccines" />
 </navigation>
