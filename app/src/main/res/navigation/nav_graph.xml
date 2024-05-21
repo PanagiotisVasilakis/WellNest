@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    app:startDestination="@id/nav_daily_state">
+
+    <fragment
+        android:id="@+id/nav_daily_state"
+        android:name="myapplication.pages.HealthProgramFragment"
+        android:label="Daily State"
+        tools:layout="@layout/fragment_health_program" />
+    <fragment
+        android:id="@+id/nav_edit_category_progress"
+        android:name="myapplication.pages.EditCategoryProgressFragment"
+        android:label="Edit Category Progress"
+        tools:layout="@layout/fragment_edit_category_progress" />
+    <fragment
+        android:id="@+id/nav_new_vaccines"
+        android:name="myapplication.pages.NewVaccinesFragment"
+        android:label="New Vaccines"
+        tools:layout="@layout/fragment_new_vaccines" />
+    <fragment
+        android:id="@+id/nav_edit_pharmacy_list"
+        android:name="myapplication.pages.EditPharmacyListFragment"
+        android:label="Edit Pharmacy List"
+        tools:layout="@layout/fragment_edit_pharmacy_list" />
+
+
+</navigation>
