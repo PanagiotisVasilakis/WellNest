@@ -18,7 +18,6 @@ public class HealthProgram extends Fragment {
         return inflater.inflate(R.layout.fragment_health_program, container, false);
     }
 
-    // 2. Daily State
     public class DailyState {
         // Operations for Health Program
         public void getHealthProgram() {
@@ -63,7 +62,6 @@ public class HealthProgram extends Fragment {
         // Implementation here
     }
 
-    // 4. Program
     public class Program {
         // Attributes for Health Program
         private int program_id;
@@ -78,7 +76,6 @@ public class HealthProgram extends Fragment {
         }
     }
 
-    // 5. Program Detected
     public class ProgramDetected {
         // Attributes for Health Program
         private int current_program_id;
@@ -110,7 +107,6 @@ public class HealthProgram extends Fragment {
         }
     }
 
-    // 6. Workout Programs
     public class WorkoutPrograms {
         // Attributes for Health Program
         private int workout_program_id;

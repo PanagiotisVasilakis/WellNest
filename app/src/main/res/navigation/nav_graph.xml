@@ -6,7 +6,13 @@
 
     <fragment
         android:id="@+id/nav_daily_state"
-        android:name="com.example.wellnest.DailyStateFragment"
+        android:name="myapplication.pages.HealthProgram"
         android:label="Daily State"
         tools:layout="@layout/fragment_health_program" />
+    <fragment
+        android:id="@+id/nav_edit_category_progress"
+        android:name="myapplication.pages.EditCategoryProgress"
+        android:label="Edit Category Progress"
+        tools:layout="@layout/fragment_edit_category_progress" />
+
 </navigation>

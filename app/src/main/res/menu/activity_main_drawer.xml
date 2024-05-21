@@ -5,6 +5,7 @@
         android:icon="@drawable/ic_menu_home"
         android:title="Daily State"
         tools:ignore="HardcodedText" />
+
     <item
         android:id="@+id/nav_medical_assist"
         android:icon="@drawable/ic_menu_assist"
