@@ -8,5 +8,5 @@
         android:id="@+id/nav_daily_state"
         android:name="com.example.wellnest.DailyStateFragment"
         android:label="Daily State"
-        tools:layout="@layout/fragment_daily_state" />
+        tools:layout="@layout/fragment_health_program" />
 </navigation>
