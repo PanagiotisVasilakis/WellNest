@@ -14,10 +14,16 @@
         android:name="myapplication.pages.EditCategoryProgressFragment"
         android:label="Edit Category Progress"
         tools:layout="@layout/fragment_edit_category_progress" />
-
     <fragment
         android:id="@+id/nav_new_vaccines"
         android:name="myapplication.pages.NewVaccinesFragment"
         android:label="New Vaccines"
         tools:layout="@layout/fragment_new_vaccines" />
+    <fragment
+        android:id="@+id/nav_edit_pharmacy_list"
+        android:name="myapplication.pages.EditPharmacyListFragment"
+        android:label="Edit Pharmacy List"
+        tools:layout="@layout/fragment_edit_pharmacy_list" />
+
+
 </navigation>
