@@ -1,0 +1,51 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".MedicalAssistFragment">
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="16dp"
+        android:gravity="center_horizontal">
+
+        <Button
+            android:id="@+id/btnMakeAppointment"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Make Appointment"
+            android:background="@drawable/button_background_1"
+            android:textColor="@android:color/white"
+            android:layout_marginBottom="16dp"/>
+
+        <Button
+            android:id="@+id/btnNewVaccines"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="New Vaccines"
+            android:background="@drawable/button_background_2"
+            android:textColor="@android:color/white"
+            android:layout_marginBottom="16dp"/>
+
+        <Button
+            android:id="@+id/btnEditPharmacyList"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Edit Pharmacy List"
+            android:background="@drawable/button_background_3"
+            android:textColor="@android:color/white"
+            android:layout_marginBottom="16dp"/>
+
+        <Button
+            android:id="@+id/btnFindCheckups"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Find and Close Checkups"
+            android:background="@drawable/button_background_4"
+            android:textColor="@android:color/white"
+            android:layout_marginBottom="16dp"/>
+
+    </LinearLayout>
+</RelativeLayout>

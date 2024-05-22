@@ -9,35 +9,50 @@
         android:name="myapplication.pages.HealthProgramFragment"
         android:label="Daily State"
         tools:layout="@layout/fragment_health_program" />
+
     <fragment
-        android:id="@+id/nav_edit_category_progress"
-        android:name="myapplication.pages.EditCategoryProgressFragment"
-        android:label="Edit Category Progress"
-        tools:layout="@layout/fragment_edit_category_progress" />
-    <fragment
-        android:id="@+id/nav_new_vaccines"
-        android:name="myapplication.pages.NewVaccinesFragment"
-        android:label="New Vaccines"
-        tools:layout="@layout/fragment_new_vaccines" />
-    <fragment
-        android:id="@+id/nav_edit_pharmacy_list"
-        android:name="myapplication.pages.EditPharmacyListFragment"
-        android:label="Edit Pharmacy List"
-        tools:layout="@layout/fragment_edit_pharmacy_list" />
-    <fragment
-        android:id="@+id/nav_add_doctor"
-        android:name="myapplication.pages.AddDoctorFragment"
-        android:label="Add Doctor"
-        tools:layout="@layout/fragment_add_doctor" />
+        android:id="@+id/nav_medical_assist"
+        android:name="myapplication.pages.MedicalAssistFragment"
+        android:label="Medical Assist"
+        tools:layout="@layout/fragment_medical_assist" />
+
     <fragment
         android:id="@+id/nav_make_appointment"
         android:name="myapplication.pages.MakeAppointmentFragment"
         android:label="Make Appointment"
         tools:layout="@layout/fragment_make_appointment" />
+
+    <fragment
+        android:id="@+id/nav_new_vaccines"
+        android:name="myapplication.pages.NewVaccinesFragment"
+        android:label="New Vaccines"
+        tools:layout="@layout/fragment_new_vaccines" />
+
+    <fragment
+        android:id="@+id/nav_edit_pharmacy_list"
+        android:name="myapplication.pages.EditPharmacyListFragment"
+        android:label="Edit Pharmacy List"
+        tools:layout="@layout/fragment_edit_pharmacy_list" />
+
     <fragment
         android:id="@+id/nav_checkup"
         android:name="myapplication.pages.CheckupFragment"
         android:label="Checkup"
         tools:layout="@layout/fragment_checkup" />
 
+    <action
+        android:id="@+id/action_nav_daily_state_to_nav_medical_assist"
+        app:destination="@id/nav_medical_assist" />
+    <action
+        android:id="@+id/action_nav_medical_assist_to_nav_make_appointment"
+        app:destination="@id/nav_make_appointment" />
+    <action
+        android:id="@+id/action_nav_medical_assist_to_nav_new_vaccines"
+        app:destination="@id/nav_new_vaccines" />
+    <action
+        android:id="@+id/action_nav_medical_assist_to_nav_edit_pharmacy_list"
+        app:destination="@id/nav_edit_pharmacy_list" />
+    <action
+        android:id="@+id/action_nav_medical_assist_to_nav_checkup"
+        app:destination="@id/nav_checkup" />
 </navigation>
