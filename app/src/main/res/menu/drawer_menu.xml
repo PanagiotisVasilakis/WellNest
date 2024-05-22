@@ -1,0 +1,10 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/nav_daily_state"
+        android:icon="@drawable/ic_menu_home"
+        android:title="Daily State" />
+    <item
+        android:id="@+id/nav_medical_assist"
+        android:icon="@drawable/ic_menu_medical_assist"
+        android:title="Medical Assist" />
+</menu>
