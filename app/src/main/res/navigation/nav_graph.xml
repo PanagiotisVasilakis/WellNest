@@ -24,6 +24,20 @@
         android:name="myapplication.pages.EditPharmacyListFragment"
         android:label="Edit Pharmacy List"
         tools:layout="@layout/fragment_edit_pharmacy_list" />
-
+    <fragment
+        android:id="@+id/nav_add_doctor"
+        android:name="myapplication.pages.AddDoctorFragment"
+        android:label="Add Doctor"
+        tools:layout="@layout/fragment_add_doctor" />
+    <fragment
+        android:id="@+id/nav_make_appointment"
+        android:name="myapplication.pages.MakeAppointmentFragment"
+        android:label="Make Appointment"
+        tools:layout="@layout/fragment_make_appointment" />
+    <fragment
+        android:id="@+id/nav_checkup"
+        android:name="myapplication.pages.CheckupFragment"
+        android:label="Checkup"
+        tools:layout="@layout/fragment_checkup" />
 
 </navigation>
