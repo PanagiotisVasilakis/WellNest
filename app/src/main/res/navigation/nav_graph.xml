@@ -39,5 +39,23 @@
         android:name="myapplication.pages.CheckupFragment"
         android:label="Checkup"
         tools:layout="@layout/fragment_checkup" />
+    <fragment
+        android:id="@+id/nav_medical_assist"
+        android:name="com.example.wellnest.MedicalAssistFragment"
+        android:label="Medical Assist"
+        tools:layout="@layout/fragment_medical_assist">
+        <action
+            android:id="@+id/action_medical_assist_to_make_appointment"
+            app:destination="@id/nav_make_appointment" />
+        <action
+            android:id="@+id/action_medical_assist_to_new_vaccines"
+            app:destination="@id/nav_new_vaccines" />
+        <action
+            android:id="@+id/action_medical_assist_to_edit_pharmacy_list"
+            app:destination="@id/nav_edit_pharmacy_list" />
+        <action
+            android:id="@+id/action_medical_assist_to_checkup"
+            app:destination="@id/nav_checkup" />
+    </fragment>
 
 </navigation>
