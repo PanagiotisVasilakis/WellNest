@@ -40,6 +40,12 @@
         android:label="Checkup"
         tools:layout="@layout/fragment_checkup" />
 
+    <fragment
+        android:id="@+id/nav_add_doctor"
+        android:name="myapplication.pages.AddDoctorFragment"
+        android:label="Add Doctor"
+        tools:layout="@layout/fragment_add_doctor" />
+
     <action
         android:id="@+id/action_nav_daily_state_to_nav_medical_assist"
         app:destination="@id/nav_medical_assist" />
@@ -55,4 +61,7 @@
     <action
         android:id="@+id/action_nav_medical_assist_to_nav_checkup"
         app:destination="@id/nav_checkup" />
+    <action
+        android:id="@+id/action_medical_assist_to_add_doctor"
+        app:destination="@id/nav_add_doctor" />
 </navigation>

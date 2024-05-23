@@ -38,8 +38,6 @@ public class HealthProgramFragment extends Fragment {
         // Operations for Edit Category Progress
     }
 
-
-    // 3. Health Program class
     public class HealthProgramClass {
         // Operations for Health Program
         public void calculateBMI() {

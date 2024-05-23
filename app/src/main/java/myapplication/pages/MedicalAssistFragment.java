@@ -24,6 +24,7 @@ public class MedicalAssistFragment extends Fragment {
         Button btnNewVaccines = view.findViewById(R.id.btnNewVaccines);
         Button btnEditPharmacyList = view.findViewById(R.id.btnEditPharmacyList);
         Button btnFindCheckups = view.findViewById(R.id.btnFindCheckups);
+        Button btnAddDoctor = view.findViewById(R.id.btnAddDoctor);
 
         NavController navController = Navigation.findNavController(getActivity(), R.id.nav_host_fragment);
 
@@ -31,6 +32,7 @@ public class MedicalAssistFragment extends Fragment {
         btnNewVaccines.setOnClickListener(v -> navController.navigate(R.id.nav_new_vaccines));
         btnEditPharmacyList.setOnClickListener(v -> navController.navigate(R.id.nav_edit_pharmacy_list));
         btnFindCheckups.setOnClickListener(v -> navController.navigate(R.id.nav_checkup));
+        btnAddDoctor.setOnClickListener(v -> navController.navigate(R.id.nav_add_doctor));
 
         return view;
     }
