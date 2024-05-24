@@ -22,6 +22,7 @@
             android:textColor="@android:color/white"
             tools:ignore="HardcodedText" />
 
+        <!--suppress AndroidDomInspection -->
         <Button
             android:id="@+id/btnNewVaccines"
             android:layout_width="238dp"
@@ -42,12 +43,13 @@
             android:textColor="@android:color/white"
             tools:ignore="HardcodedText" />
 
+        <!--suppress AndroidDomInspection -->
         <Button
             android:id="@+id/btnFindCheckups"
             android:layout_width="238dp"
             android:layout_height="79dp"
             android:layout_marginBottom="16dp"
-            android:background="@drawable/button_checkup"
+            android:background="@drawable/button_checkups"
             android:text="Find and Close Checkups"
             android:textColor="@android:color/white"
             tools:ignore="HardcodedText" />

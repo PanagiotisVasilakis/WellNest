@@ -1,4 +1,4 @@
-package myapplication.pages;
+package myapplication.pages.Doctors;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -6,13 +6,14 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
-import database.Doctor;
+import database.DoctorsDb.Doctor;
+import myapplication.pages.R;
 import java.util.List;
 
 public class DoctorAdapter extends RecyclerView.Adapter<DoctorAdapter.DoctorViewHolder> {
 
     private List<Doctor> doctors;
-    private OnItemClickListener listener;
+    private final OnItemClickListener listener;
 
     public interface OnItemClickListener {
         void onItemClick(Doctor doctor);

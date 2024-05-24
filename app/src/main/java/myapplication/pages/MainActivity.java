@@ -39,7 +39,7 @@ public class MainActivity extends AppCompatActivity {
         NavController navController = navHostFragment.getNavController();
 
         appBarConfiguration = new AppBarConfiguration.Builder(
-                R.id.nav_daily_state, R.id.nav_medical_assist)
+                R.id.nav_daily_state, R.id.nav_medical_assist, R.id.nav_doctor_list)
                 .setOpenableLayout(drawerLayout)
                 .build();
 
@@ -53,6 +53,8 @@ public class MainActivity extends AppCompatActivity {
                 navController.navigate(R.id.nav_daily_state);
             } else if (id == R.id.nav_medical_assist) {
                 navController.navigate(R.id.nav_medical_assist);
+            } else if (id == R.id.nav_doctor_list) {
+                navController.navigate(R.id.nav_doctor_list);
             }
 
             drawerLayout.closeDrawer(GravityCompat.START);

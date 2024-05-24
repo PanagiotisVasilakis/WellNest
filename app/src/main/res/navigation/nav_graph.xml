@@ -17,6 +17,12 @@
         tools:layout="@layout/fragment_medical_assist" />
 
     <fragment
+        android:id="@+id/nav_doctor_list"
+        android:name="myapplication.pages.Doctors.DoctorListFragment"
+        android:label="Doctor List"
+        tools:layout="@layout/fragment_doctor_list" />
+
+    <fragment
         android:id="@+id/nav_make_appointment"
         android:name="myapplication.pages.MakeAppointmentFragment"
         android:label="Make Appointment"
@@ -42,7 +48,7 @@
 
     <fragment
         android:id="@+id/nav_add_doctor"
-        android:name="myapplication.pages.AddDoctorFragment"
+        android:name="myapplication.pages.Doctors.AddDoctorFragment"
         android:label="Add Doctor"
         tools:layout="@layout/fragment_add_doctor" />
 
