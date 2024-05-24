@@ -127,12 +127,11 @@ public class AddDoctorFragment extends Fragment {
         }
 
         public void addDoctor(View popupView, PopupWindow popupWindow, Doctor doctor) {
+            // just a simple patient id
+            long curentpatientId =  1234567890L;
             Button btnAddDoctor = popupView.findViewById(R.id.btnAddDoctor);
             btnAddDoctor.setOnClickListener(v -> {
-                // Assuming user info is hard-coded for demonstration purposes
-                String patientName = "John Doe";
-                int patientAge = 30;
-                patientInfoDb.addPatientInfo(patientName, patientAge, doctor.getName(), doctor.getSpecialization());
+                patientInfoDb.addPatientDoctor(curentpatientId, doctor.getName(), doctor.getSpecialization());
                 popupWindow.dismiss();
                 Toast.makeText(getActivity(), "Doctor added to patient info", Toast.LENGTH_SHORT).show();
             });

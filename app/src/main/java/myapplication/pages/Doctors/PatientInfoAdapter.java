@@ -6,20 +6,20 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
-import database.PatientInfoDb.PatientInfo;
+import database.PatientInfoDb.Patient;
 import myapplication.pages.R;
 import java.util.List;
 
 public class PatientInfoAdapter extends RecyclerView.Adapter<PatientInfoAdapter.PatientInfoViewHolder> {
 
-    private List<PatientInfo> patientInfos;
+    private List<Patient> patientInfos;
     private OnItemClickListener listener;
 
     public interface OnItemClickListener {
-        void onItemClick(PatientInfo patientInfo);
+        void onItemClick(Patient patientInfo);
     }
 
-    public PatientInfoAdapter(List<PatientInfo> patientInfos, OnItemClickListener listener) {
+    public PatientInfoAdapter(List<Patient> patientInfos, OnItemClickListener listener) {
         this.patientInfos = patientInfos;
         this.listener = listener;
     }
@@ -33,11 +33,9 @@ public class PatientInfoAdapter extends RecyclerView.Adapter<PatientInfoAdapter.
 
     @Override
     public void onBindViewHolder(@NonNull PatientInfoViewHolder holder, int position) {
-        PatientInfo patientInfo = patientInfos.get(position);
+        Patient patientInfo = patientInfos.get(position);
         holder.nameTextView.setText(patientInfo.getName());
         holder.ageTextView.setText(String.valueOf(patientInfo.getAge()));
-        holder.doctorNameTextView.setText(patientInfo.getDoctorName());
-        holder.doctorSpecializationTextView.setText(patientInfo.getDoctorSpecialization());
         holder.itemView.setOnClickListener(v -> listener.onItemClick(patientInfo));
     }
 
@@ -46,7 +44,7 @@ public class PatientInfoAdapter extends RecyclerView.Adapter<PatientInfoAdapter.
         return patientInfos.size();
     }
 
-    public void setPatientInfos(List<PatientInfo> patientInfos) {
+    public void setPatientInfos(List<Patient> patientInfos) {
         this.patientInfos = patientInfos;
         notifyDataSetChanged();
     }
@@ -54,15 +52,11 @@ public class PatientInfoAdapter extends RecyclerView.Adapter<PatientInfoAdapter.
     static class PatientInfoViewHolder extends RecyclerView.ViewHolder {
         TextView nameTextView;
         TextView ageTextView;
-        TextView doctorNameTextView;
-        TextView doctorSpecializationTextView;
 
         public PatientInfoViewHolder(@NonNull View itemView) {
             super(itemView);
             nameTextView = itemView.findViewById(R.id.nameTextView);
             ageTextView = itemView.findViewById(R.id.ageTextView);
-            doctorNameTextView = itemView.findViewById(R.id.doctorNameTextView);
-            doctorSpecializationTextView = itemView.findViewById(R.id.doctorSpecializationTextView);
         }
     }
 }

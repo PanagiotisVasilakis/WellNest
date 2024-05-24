@@ -5,9 +5,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-import android.util.Log;
 import androidx.annotation.Nullable;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,20 +14,30 @@ public class PatientInfoDb extends SQLiteOpenHelper {
     private static final String DATABASE_NAME = "patientinfo.db";
     private static final int DATABASE_VERSION = 1;
 
-    public static final String TABLE_PATIENT_INFO = "patient_info";
-    public static final String COLUMN_ID = "_id";
-    public static final String COLUMN_NAME = "name";
-    public static final String COLUMN_AGE = "age";
+    public static final String TABLE_PATIENTS = "patients";
+    public static final String COLUMN_PATIENT_ID = "_id";
+    public static final String COLUMN_PATIENT_NAME = "name";
+    public static final String COLUMN_PATIENT_AGE = "age";
+
+    public static final String TABLE_PATIENT_DOCTORS = "patient_doctors";
+    public static final String COLUMN_DOCTOR_ID = "_id";
+    public static final String COLUMN_PATIENT_ID_FK = "patient_id";
     public static final String COLUMN_DOCTOR_NAME = "doctor_name";
     public static final String COLUMN_DOCTOR_SPECIALIZATION = "doctor_specialization";
 
-    private static final String TABLE_CREATE =
-            "CREATE TABLE " + TABLE_PATIENT_INFO + " (" +
-                    COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
-                    COLUMN_NAME + " TEXT, " +
-                    COLUMN_AGE + " INTEGER, " +
+    private static final String TABLE_CREATE_PATIENTS =
+            "CREATE TABLE " + TABLE_PATIENTS + " (" +
+                    COLUMN_PATIENT_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                    COLUMN_PATIENT_NAME + " TEXT, " +
+                    COLUMN_PATIENT_AGE + " INTEGER);";
+
+    private static final String TABLE_CREATE_PATIENT_DOCTORS =
+            "CREATE TABLE " + TABLE_PATIENT_DOCTORS + " (" +
+                    COLUMN_DOCTOR_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                    COLUMN_PATIENT_ID_FK + " INTEGER, " +
                     COLUMN_DOCTOR_NAME + " TEXT, " +
-                    COLUMN_DOCTOR_SPECIALIZATION + " TEXT);";
+                    COLUMN_DOCTOR_SPECIALIZATION + " TEXT, " +
+                    "FOREIGN KEY(" + COLUMN_PATIENT_ID_FK + ") REFERENCES " + TABLE_PATIENTS + "(" + COLUMN_PATIENT_ID + "));";
 
     public PatientInfoDb(@Nullable Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -37,42 +45,50 @@ public class PatientInfoDb extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        db.execSQL(TABLE_CREATE);
+        db.execSQL(TABLE_CREATE_PATIENTS);
+        db.execSQL(TABLE_CREATE_PATIENT_DOCTORS);
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        db.execSQL("DROP TABLE IF EXISTS " + TABLE_PATIENT_INFO);
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_PATIENT_DOCTORS);
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_PATIENTS);
         onCreate(db);
     }
 
-    public void addPatientInfo(String name, int age, String doctorName, String doctorSpecialization) {
-        SQLiteDatabase db = getWritableDatabase();
+    public long addPatient(String name, int age) {
+        SQLiteDatabase db = this.getWritableDatabase();
 
         ContentValues values = new ContentValues();
-        values.put(COLUMN_NAME, name);
-        values.put(COLUMN_AGE, age);
+        values.put(COLUMN_PATIENT_NAME, name);
+        values.put(COLUMN_PATIENT_AGE, age);
+
+        return db.insert(TABLE_PATIENTS, null, values);
+    }
+
+    public void addPatientDoctor(long patientId, String doctorName, String doctorSpecialization) {
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        ContentValues values = new ContentValues();
+        values.put(COLUMN_PATIENT_ID_FK, patientId);
         values.put(COLUMN_DOCTOR_NAME, doctorName);
         values.put(COLUMN_DOCTOR_SPECIALIZATION, doctorSpecialization);
 
-        long result = db.insert(TABLE_PATIENT_INFO, null, values);
-        Log.d("PatientInfoDb", "Inserted Patient Info: " + name + ", Result: " + result);
+        db.insert(TABLE_PATIENT_DOCTORS, null, values);
     }
 
-    public List<PatientInfo> getAllPatientInfo() {
-        List<PatientInfo> patientInfoList = new ArrayList<>();
+    public List<Patient> getAllPatients() {
+        List<Patient> patientList = new ArrayList<>();
         SQLiteDatabase db = this.getReadableDatabase();
 
         String[] projection = {
-                COLUMN_ID,
-                COLUMN_NAME,
-                COLUMN_AGE,
-                COLUMN_DOCTOR_NAME,
-                COLUMN_DOCTOR_SPECIALIZATION
+                COLUMN_PATIENT_ID,
+                COLUMN_PATIENT_NAME,
+                COLUMN_PATIENT_AGE
         };
 
         Cursor cursor = db.query(
-                TABLE_PATIENT_INFO,
+                TABLE_PATIENTS,
                 projection,
                 null,
                 null,
@@ -82,36 +98,64 @@ public class PatientInfoDb extends SQLiteOpenHelper {
         );
 
         while (cursor.moveToNext()) {
-            long id = cursor.getLong(cursor.getColumnIndexOrThrow(COLUMN_ID));
-            String name = cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_NAME));
-            int age = cursor.getInt(cursor.getColumnIndexOrThrow(COLUMN_AGE));
-            String doctorName = cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_DOCTOR_NAME));
-            String doctorSpecialization = cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_DOCTOR_SPECIALIZATION));
+            long id = cursor.getLong(cursor.getColumnIndexOrThrow(COLUMN_PATIENT_ID));
+            String name = cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_PATIENT_NAME));
+            int age = cursor.getInt(cursor.getColumnIndexOrThrow(COLUMN_PATIENT_AGE));
 
-            PatientInfo patientInfo = new PatientInfo(id, name, age, doctorName, doctorSpecialization);
-            patientInfoList.add(patientInfo);
-
-            Log.d("PatientInfoDb", "Fetched Patient Info: " + name);
+            Patient patient = new Patient(id, name, age);
+            patientList.add(patient);
         }
         cursor.close();
 
-        return patientInfoList;
+        return patientList;
     }
 
-    // Inner PatientInfo class
-    public static class PatientInfo {
+    public List<Doctor> getDoctorsForPatient(long patientId) {
+        List<Doctor> doctorList = new ArrayList<>();
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        String[] projection = {
+                COLUMN_DOCTOR_ID,
+                COLUMN_DOCTOR_NAME,
+                COLUMN_DOCTOR_SPECIALIZATION
+        };
+
+        String selection = COLUMN_PATIENT_ID_FK + " = ?";
+        String[] selectionArgs = { String.valueOf(patientId) };
+
+        Cursor cursor = db.query(
+                TABLE_PATIENT_DOCTORS,
+                projection,
+                selection,
+                selectionArgs,
+                null,
+                null,
+                null
+        );
+
+        while (cursor.moveToNext()) {
+            long id = cursor.getLong(cursor.getColumnIndexOrThrow(COLUMN_DOCTOR_ID));
+            String name = cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_DOCTOR_NAME));
+            String specialization = cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_DOCTOR_SPECIALIZATION));
+
+            Doctor doctor = new Doctor(id, name, specialization);
+            doctorList.add(doctor);
+        }
+        cursor.close();
+
+        return doctorList;
+    }
+
+    // Inner Patient class
+    public static class Patient {
         private long id;
         private String name;
         private int age;
-        private String doctorName;
-        private String doctorSpecialization;
 
-        public PatientInfo(long id, String name, int age, String doctorName, String doctorSpecialization) {
+        public Patient(long id, String name, int age) {
             this.id = id;
             this.name = name;
             this.age = age;
-            this.doctorName = doctorName;
-            this.doctorSpecialization = doctorSpecialization;
         }
 
         // Getters and Setters
@@ -138,21 +182,43 @@ public class PatientInfoDb extends SQLiteOpenHelper {
         public void setAge(int age) {
             this.age = age;
         }
+    }
 
-        public String getDoctorName() {
-            return doctorName;
+    // Inner Doctor class
+    public static class Doctor {
+        private long id;
+        private String name;
+        private String specialization;
+
+        public Doctor(long id, String name, String specialization) {
+            this.id = id;
+            this.name = name;
+            this.specialization = specialization;
         }
 
-        public void setDoctorName(String doctorName) {
-            this.doctorName = doctorName;
+        // Getters and Setters
+        public long getId() {
+            return id;
         }
 
-        public String getDoctorSpecialization() {
-            return doctorSpecialization;
+        public void setId(long id) {
+            this.id = id;
         }
 
-        public void setDoctorSpecialization(String doctorSpecialization) {
-            this.doctorSpecialization = doctorSpecialization;
+        public String getName() {
+            return name;
+        }
+
+        public void setName(String name) {
+            this.name = name;
+        }
+
+        public String getSpecialization() {
+            return specialization;
+        }
+
+        public void setSpecialization(String specialization) {
+            this.specialization = specialization;
         }
     }
 }
