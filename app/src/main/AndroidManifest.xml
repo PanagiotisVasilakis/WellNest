@@ -9,15 +9,19 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
 
-        <activity
-            android:name=".MainActivity"
-            android:label="@string/app_name"
-            android:theme="@style/AppTheme.NoActionBar"
+        <activity android:name=".RegistrationAndLogin.LoginActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <activity android:name=".RegistrationAndLogin.RegisterActivity" />
+        <activity android:name=".UserTypes.RoleSelectionActivity" />
+        <activity android:name=".MainActivity" />
+
     </application>
+
+
 </manifest>
