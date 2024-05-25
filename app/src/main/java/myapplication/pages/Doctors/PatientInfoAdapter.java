@@ -15,6 +15,7 @@ public class PatientInfoAdapter extends RecyclerView.Adapter<PatientInfoAdapter.
     private List<Patient> patientInfos;
     private OnItemClickListener listener;
 
+    // The Add doctor doesnt work
     public interface OnItemClickListener {
         void onItemClick(Patient patientInfo);
     }
