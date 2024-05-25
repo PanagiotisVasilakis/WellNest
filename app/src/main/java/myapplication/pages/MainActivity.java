@@ -13,6 +13,7 @@ import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 import com.google.android.material.navigation.NavigationView;
 
+import myapplication.pages.Doctors.DoctorListFragment;
 import myapplication.pages.RegistrationAndLogin.LoginActivity;
 
 public class MainActivity extends AppCompatActivity {
@@ -94,4 +95,18 @@ public class MainActivity extends AppCompatActivity {
         return NavigationUI.navigateUp(navController, appBarConfiguration)
                 || super.onSupportNavigateUp();
     }
+
+    public void navigateToDoctorList(long currentPatientId) {
+        Bundle args = new Bundle();
+        args.putLong("currentPatientId", currentPatientId);
+
+        DoctorListFragment fragment = new DoctorListFragment();
+        fragment.setArguments(args);
+
+        getSupportFragmentManager().beginTransaction()
+                .replace(R.id.nav_host_fragment, fragment)
+                .addToBackStack(null)
+                .commit();
+    }
+
 }

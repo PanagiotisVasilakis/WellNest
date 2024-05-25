@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">My Application</string>
+    <string name="app_name">WellNest</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="sign_in_as">Sign In as</string>
@@ -15,4 +15,6 @@
     <string name="button_signup">Sign Up</string>
     <string name="logo_description">WellNest logo</string>
     <string name="logout">Logout</string>
+    <string name="i_am_a_doctor">I am a Doctor</string>
+    <string name="i_am_a_patient">I am a Patient</string>
 </resources>
