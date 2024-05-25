@@ -20,10 +20,10 @@ public class PatientInfoDb extends SQLiteOpenHelper {
     public static final String COLUMN_PATIENT_AGE = "age";
 
     public static final String TABLE_PATIENT_DOCTORS = "patient_doctors";
-    public static final String COLUMN_DOCTOR_ID = "_id";
+    public static final String COLUMN_DOCTOR_ID = "id";
     public static final String COLUMN_PATIENT_ID_FK = "patient_id";
-    public static final String COLUMN_DOCTOR_NAME = "doctor_name";
-    public static final String COLUMN_DOCTOR_SPECIALIZATION = "doctor_specialization";
+    //public static final String COLUMN_DOCTOR_NAME = "doctor_name";
+    //public static final String COLUMN_DOCTOR_SPECIALIZATION = "doctor_specialization";
 
     private static final String TABLE_CREATE_PATIENTS =
             "CREATE TABLE " + TABLE_PATIENTS + " (" +
@@ -33,10 +33,10 @@ public class PatientInfoDb extends SQLiteOpenHelper {
 
     private static final String TABLE_CREATE_PATIENT_DOCTORS =
             "CREATE TABLE " + TABLE_PATIENT_DOCTORS + " (" +
-                    COLUMN_DOCTOR_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                    COLUMN_DOCTOR_ID + " INTEGER, " +
                     COLUMN_PATIENT_ID_FK + " INTEGER, " +
-                    COLUMN_DOCTOR_NAME + " TEXT, " +
-                    COLUMN_DOCTOR_SPECIALIZATION + " TEXT, " +
+                    //COLUMN_DOCTOR_NAME + " TEXT, " +
+                   // COLUMN_DOCTOR_SPECIALIZATION + " TEXT, " +
                     "FOREIGN KEY(" + COLUMN_PATIENT_ID_FK + ") REFERENCES " + TABLE_PATIENTS + "(" + COLUMN_PATIENT_ID + "));";
 
     public PatientInfoDb(@Nullable Context context) {
@@ -47,6 +47,7 @@ public class PatientInfoDb extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db) {
         db.execSQL(TABLE_CREATE_PATIENTS);
         db.execSQL(TABLE_CREATE_PATIENT_DOCTORS);
+        //insertSamplePatients();
     }
 
     @Override
@@ -56,23 +57,29 @@ public class PatientInfoDb extends SQLiteOpenHelper {
         onCreate(db);
     }
 
-    public long addPatient(String name, int age) {
+    public void addPatient(String name, int age) {
         SQLiteDatabase db = this.getWritableDatabase();
 
         ContentValues values = new ContentValues();
         values.put(COLUMN_PATIENT_NAME, name);
         values.put(COLUMN_PATIENT_AGE, age);
 
-        return db.insert(TABLE_PATIENTS, null, values);
+        db.insert(TABLE_PATIENTS, null, values);
     }
 
-    public void addPatientDoctor(long patientId, String doctorName, String doctorSpecialization) {
+//    public void insertSamplePatients() {
+//        addPatient("Patient One", 30);
+//        addPatient("Patient Two", 40);
+//        addPatient("Patient Three", 50);
+//        addPatient("Patient Four", 60);
+//    }
+
+    public void addPatientDoctor(long patientId, long doctorId) {
         SQLiteDatabase db = this.getWritableDatabase();
 
         ContentValues values = new ContentValues();
         values.put(COLUMN_PATIENT_ID_FK, patientId);
-        values.put(COLUMN_DOCTOR_NAME, doctorName);
-        values.put(COLUMN_DOCTOR_SPECIALIZATION, doctorSpecialization);
+        values.put(COLUMN_DOCTOR_ID, doctorId);
 
         db.insert(TABLE_PATIENT_DOCTORS, null, values);
     }
@@ -116,8 +123,8 @@ public class PatientInfoDb extends SQLiteOpenHelper {
 
         String[] projection = {
                 COLUMN_DOCTOR_ID,
-                COLUMN_DOCTOR_NAME,
-                COLUMN_DOCTOR_SPECIALIZATION
+                //COLUMN_DOCTOR_NAME,
+                //COLUMN_DOCTOR_SPECIALIZATION
         };
 
         String selection = COLUMN_PATIENT_ID_FK + " = ?";
@@ -135,10 +142,10 @@ public class PatientInfoDb extends SQLiteOpenHelper {
 
         while (cursor.moveToNext()) {
             long id = cursor.getLong(cursor.getColumnIndexOrThrow(COLUMN_DOCTOR_ID));
-            String name = cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_DOCTOR_NAME));
-            String specialization = cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_DOCTOR_SPECIALIZATION));
+            //String name = cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_DOCTOR_NAME));
+            //String specialization = cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_DOCTOR_SPECIALIZATION));
 
-            Doctor doctor = new Doctor(id, name, specialization);
+            Doctor doctor = new Doctor(id);
             doctorList.add(doctor);
         }
         cursor.close();
@@ -190,10 +197,10 @@ public class PatientInfoDb extends SQLiteOpenHelper {
         private String name;
         private String specialization;
 
-        public Doctor(long id, String name, String specialization) {
+        public Doctor(long id) {
             this.id = id;
-            this.name = name;
-            this.specialization = specialization;
+//            this.name = name;
+//            this.specialization = specialization;
         }
 
         // Getters and Setters
@@ -205,20 +212,20 @@ public class PatientInfoDb extends SQLiteOpenHelper {
             this.id = id;
         }
 
-        public String getName() {
-            return name;
-        }
-
-        public void setName(String name) {
-            this.name = name;
-        }
-
-        public String getSpecialization() {
-            return specialization;
-        }
-
-        public void setSpecialization(String specialization) {
-            this.specialization = specialization;
-        }
+//        public String getName() {
+//            return name;
+//        }
+//
+//        public void setName(String name) {
+//            this.name = name;
+//        }
+//
+//        public String getSpecialization() {
+//            return specialization;
+//        }
+//
+//        public void setSpecialization(String specialization) {
+//            this.specialization = specialization;
+//        }
     }
 }

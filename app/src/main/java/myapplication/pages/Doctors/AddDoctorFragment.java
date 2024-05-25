@@ -1,5 +1,6 @@
 package myapplication.pages.Doctors;
 
+import android.annotation.SuppressLint;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import androidx.annotation.NonNull;
@@ -33,10 +34,11 @@ public class AddDoctorFragment extends Fragment {
     private DoctorAdapter doctorAdapter;
     private List<DoctorsDb.Doctor> doctorList;
 
-    public AddDoctorFragment() {
-        // Required empty public constructor
-    }
 
+    // Required empty public constructor
+    public AddDoctorFragment() { }
+
+    // Initialize the fragment view and set up the search view and recycler view for doctors.
     @NonNull
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
@@ -71,6 +73,7 @@ public class AddDoctorFragment extends Fragment {
         return view;
     }
 
+    // Search for doctors by name or specialization
     public void getDoctors(String query) {
         List<DoctorsDb.Doctor> doctors = dbHelper.getAllDoctors();
         List<DoctorsDb.Doctor> filteredDoctors = new ArrayList<>();
@@ -86,6 +89,7 @@ public class AddDoctorFragment extends Fragment {
         doctorAdapter.setDoctors(filteredDoctors);
     }
 
+    // Load all doctors from the database
     private void renewPageLoadAllDoctors() {
         List<DoctorsDb.Doctor> doctors = dbHelper.getAllDoctors();
         doctorList.clear();
@@ -97,6 +101,7 @@ public class AddDoctorFragment extends Fragment {
         doctorAdapter.setDoctors(doctors);
     }
 
+    // Show doctor profile in a popup window
     public void showDoctorProfile(Doctor doctor) {
         View popupView = (View) doctorProfile.getDoctorInfo(doctor);
         PopupWindow popupWindow = new PopupWindow(popupView, ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT, true);
@@ -108,7 +113,7 @@ public class AddDoctorFragment extends Fragment {
     public class DoctorProfile {
 
         public Object getDoctorInfo(Doctor doctor) {
-            View popupView = LayoutInflater.from(getActivity()).inflate(R.layout.popup_doctor_details, null);
+            @SuppressLint("InflateParams") View popupView = LayoutInflater.from(getActivity()).inflate(R.layout.popup_doctor_details, null);
 
             TextView tvDoctorName = popupView.findViewById(R.id.tvDoctorName);
             TextView tvDoctorLocation = popupView.findViewById(R.id.tvDoctorLocation);
@@ -126,18 +131,19 @@ public class AddDoctorFragment extends Fragment {
             return popupView;
         }
 
+        // add doctor to patient info
         public void addDoctor(View popupView, PopupWindow popupWindow, Doctor doctor) {
             // just a simple patient id
-            long curentpatientId =  1234567890L;
             Button btnAddDoctor = popupView.findViewById(R.id.btnAddDoctor);
             btnAddDoctor.setOnClickListener(v -> {
-                patientInfoDb.addPatientDoctor(curentpatientId, doctor.getName(), doctor.getSpecialization());
+               // patientInfoDb.addPatientDoctor(curentpatientId, doctor.getId());
                 popupWindow.dismiss();
                 Toast.makeText(getActivity(), "Doctor added to patient info", Toast.LENGTH_SHORT).show();
             });
         }
     }
 
+    // Insert sample data into the database for demonstration purposes
     public static void insertSampleData(SQLiteDatabase db) {
         Doctor doctor1 = new Doctor();
         doctor1.setName("Dr. Alice Smith");

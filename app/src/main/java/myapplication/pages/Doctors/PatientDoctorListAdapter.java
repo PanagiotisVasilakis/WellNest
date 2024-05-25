@@ -1,5 +1,6 @@
 package myapplication.pages.Doctors;
 
+import android.annotation.SuppressLint;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,7 +14,7 @@ import java.util.List;
 public class PatientDoctorListAdapter extends RecyclerView.Adapter<PatientDoctorListAdapter.PatientDoctorViewHolder> {
 
     private List<Doctor> doctors;
-    private OnItemClickListener listener;
+    private final OnItemClickListener listener;
 
     public interface OnItemClickListener {
         void onItemClick(Doctor doctor);
@@ -34,8 +35,8 @@ public class PatientDoctorListAdapter extends RecyclerView.Adapter<PatientDoctor
     @Override
     public void onBindViewHolder(@NonNull PatientDoctorViewHolder holder, int position) {
         Doctor doctor = doctors.get(position);
-        holder.nameTextView.setText(doctor.getName());
-        holder.specializationTextView.setText(doctor.getSpecialization());
+        //holder.nameTextView.setText(doctor.getName());
+        //holder.specializationTextView.setText(doctor.getSpecialization());
         holder.itemView.setOnClickListener(v -> listener.onItemClick(doctor));
     }
 
@@ -44,6 +45,7 @@ public class PatientDoctorListAdapter extends RecyclerView.Adapter<PatientDoctor
         return doctors.size();
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     public void setDoctors(List<Doctor> doctors) {
         this.doctors = doctors;
         notifyDataSetChanged();
