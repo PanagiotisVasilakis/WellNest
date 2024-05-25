@@ -14,4 +14,5 @@
     <string name="button_login">Login</string>
     <string name="button_signup">Sign Up</string>
     <string name="logo_description">WellNest logo</string>
+    <string name="logout">Logout</string>
 </resources>
