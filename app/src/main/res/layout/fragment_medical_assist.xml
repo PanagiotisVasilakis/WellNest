@@ -5,47 +5,62 @@
     tools:context=".MedicalAssistFragment">
 
     <LinearLayout
-        android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
+        android:gravity="center_horizontal"
+        android:orientation="vertical"
         android:padding="16dp"
-        android:gravity="center_horizontal">
+        tools:ignore="UselessParent">
 
         <Button
             android:id="@+id/btnMakeAppointment"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_width="238dp"
+            android:layout_height="79dp"
+            android:layout_marginBottom="16dp"
+            android:background="@drawable/button_make_appointment"
             android:text="Make Appointment"
-            android:background="@drawable/button_background_1"
             android:textColor="@android:color/white"
-            android:layout_marginBottom="16dp"/>
+            tools:ignore="HardcodedText" />
 
+        <!--suppress AndroidDomInspection -->
         <Button
             android:id="@+id/btnNewVaccines"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_width="238dp"
+            android:layout_height="79dp"
+            android:layout_marginBottom="16dp"
+            android:background="@drawable/button_new_vaccines"
             android:text="New Vaccines"
-            android:background="@drawable/button_background_2"
             android:textColor="@android:color/white"
-            android:layout_marginBottom="16dp"/>
+            tools:ignore="HardcodedText" />
 
         <Button
             android:id="@+id/btnEditPharmacyList"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_width="238dp"
+            android:layout_height="79dp"
+            android:layout_marginBottom="16dp"
+            android:background="@drawable/button_edit_pharmacy_list"
             android:text="Edit Pharmacy List"
-            android:background="@drawable/button_background_3"
             android:textColor="@android:color/white"
-            android:layout_marginBottom="16dp"/>
+            tools:ignore="HardcodedText" />
 
+        <!--suppress AndroidDomInspection -->
         <Button
             android:id="@+id/btnFindCheckups"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_width="238dp"
+            android:layout_height="79dp"
+            android:layout_marginBottom="16dp"
+            android:background="@drawable/button_checkups"
             android:text="Find and Close Checkups"
-            android:background="@drawable/button_background_4"
             android:textColor="@android:color/white"
-            android:layout_marginBottom="16dp"/>
+            tools:ignore="HardcodedText" />
+
+        <Button
+            android:id="@+id/btnAddDoctor"
+            android:layout_width="238dp"
+            android:layout_height="79dp"
+            android:layout_marginBottom="16dp"
+            android:text="Add Doctor"
+            tools:ignore="HardcodedText" />
 
     </LinearLayout>
 </RelativeLayout>

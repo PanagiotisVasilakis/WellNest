@@ -33,7 +33,6 @@ public class EditPharmacyListFragment extends Fragment {
         }
     }
 
-    // 30. Add Pharmacy class
     public class AddPharmacy {
         // Operations for Edit Pharmacy List
         public void getPharmacies() {
