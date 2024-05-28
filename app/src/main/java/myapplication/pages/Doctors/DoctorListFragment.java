@@ -9,16 +9,19 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import database.PatientInfoDb;
-import database.PatientInfoDb.Doctor;
-import myapplication.pages.R;
+import android.widget.Toast;
+
+import java.util.ArrayList;
 import java.util.List;
+import database.DoctorsDb;
+import database.DoctorsDb.Doctor;
+import myapplication.pages.R;
 
 public class DoctorListFragment extends Fragment {
 
-    private PatientInfoDb dbHelper;
-    private PatientDoctorListAdapter doctorAdapter;
-    private long currentPatientId = 1;  // Assume a patient ID for demonstration purposes
+    private DoctorsDb dbHelper;
+    private DoctorAdapter doctorAdapter;
+    private long currentPatientId;
 
     public DoctorListFragment() {
         // Required empty public constructor
@@ -26,20 +29,34 @@ public class DoctorListFragment extends Fragment {
 
     @Nullable
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
-                             @Nullable Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_doctor_list, container, false);
 
-        dbHelper = new PatientInfoDb(getActivity());
-        List<Doctor> doctors = dbHelper.getDoctorsForPatient(currentPatientId);
-        doctorAdapter = new PatientDoctorListAdapter(doctors, doctor -> {
-            // Handle doctor item click if needed
-        });
+        dbHelper = new DoctorsDb(getActivity());
+        doctorAdapter = new DoctorAdapter(new ArrayList<>(), this::showDoctorProfile);
 
         RecyclerView recyclerView = view.findViewById(R.id.recyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         recyclerView.setAdapter(doctorAdapter);
 
+        if (getArguments() != null) {
+            currentPatientId = getArguments().getLong("currentPatientId", -1);
+        }
+
+        loadDoctorsForPatient();
+
         return view;
+    }
+
+    private void loadDoctorsForPatient() {
+        if (currentPatientId != -1) {
+            List<Doctor> doctors = dbHelper.getDoctorsForPatient(currentPatientId);
+            doctorAdapter.setDoctors(doctors);
+        }
+    }
+
+    private void showDoctorProfile(Doctor doctor) {
+        // Implement showing doctor profile logic here
+        Toast.makeText(getActivity(), "Doctor: " + doctor.getName(), Toast.LENGTH_SHORT).show();
     }
 }

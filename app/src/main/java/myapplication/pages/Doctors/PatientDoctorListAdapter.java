@@ -7,20 +7,21 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
-import database.PatientInfoDb.Doctor;
+
+import database.DoctorsDb;
 import myapplication.pages.R;
 import java.util.List;
 
 public class PatientDoctorListAdapter extends RecyclerView.Adapter<PatientDoctorListAdapter.PatientDoctorViewHolder> {
 
-    private List<Doctor> doctors;
+    private List<DoctorsDb.Doctor> doctors;
     private final OnItemClickListener listener;
 
     public interface OnItemClickListener {
-        void onItemClick(Doctor doctor);
+        void onItemClick(DoctorsDb.Doctor doctor);
     }
 
-    public PatientDoctorListAdapter(List<Doctor> doctors, OnItemClickListener listener) {
+    public PatientDoctorListAdapter(List<DoctorsDb.Doctor> doctors, OnItemClickListener listener) {
         this.doctors = doctors;
         this.listener = listener;
     }
@@ -34,7 +35,7 @@ public class PatientDoctorListAdapter extends RecyclerView.Adapter<PatientDoctor
 
     @Override
     public void onBindViewHolder(@NonNull PatientDoctorViewHolder holder, int position) {
-        Doctor doctor = doctors.get(position);
+        DoctorsDb.Doctor doctor = doctors.get(position);
         //holder.nameTextView.setText(doctor.getName());
         //holder.specializationTextView.setText(doctor.getSpecialization());
         holder.itemView.setOnClickListener(v -> listener.onItemClick(doctor));
@@ -46,7 +47,7 @@ public class PatientDoctorListAdapter extends RecyclerView.Adapter<PatientDoctor
     }
 
     @SuppressLint("NotifyDataSetChanged")
-    public void setDoctors(List<Doctor> doctors) {
+    public void setDoctors(List<DoctorsDb.Doctor> doctors) {
         this.doctors = doctors;
         notifyDataSetChanged();
     }
