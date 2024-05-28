@@ -59,8 +59,7 @@ public class MainActivity extends AppCompatActivity {
             } else if (id == R.id.nav_doctor_list) {
                 navController.navigate(R.id.nav_doctor_list);
             } else if (id == R.id.nav_logout) {
-                Intent intent = new Intent(MainActivity.this, LoginActivity.class);
-                startActivity(intent);
+               performLogout();
             }
 
             drawerLayout.closeDrawer(GravityCompat.START);
