@@ -9,6 +9,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
+
 import java.util.ArrayList;
 import java.util.List;
 import database.DoctorsDb;
@@ -55,5 +57,6 @@ public class DoctorListFragment extends Fragment {
 
     private void showDoctorProfile(Doctor doctor) {
         // Implement showing doctor profile logic here
+        Toast.makeText(getActivity(), "Doctor: " + doctor.getName(), Toast.LENGTH_SHORT).show();
     }
 }
