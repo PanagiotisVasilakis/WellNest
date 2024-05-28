@@ -2,6 +2,7 @@ package myapplication.pages;
 
 import android.content.Intent;
 import android.os.Bundle;
+
 import androidx.activity.OnBackPressedCallback;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -12,8 +13,7 @@ import androidx.navigation.fragment.NavHostFragment;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 import com.google.android.material.navigation.NavigationView;
-
-import myapplication.pages.Doctors.DoctorListFragment;
+import java.util.Objects;
 import myapplication.pages.RegistrationAndLogin.LoginActivity;
 
 public class MainActivity extends AppCompatActivity {
@@ -59,7 +59,8 @@ public class MainActivity extends AppCompatActivity {
             } else if (id == R.id.nav_doctor_list) {
                 navController.navigate(R.id.nav_doctor_list);
             } else if (id == R.id.nav_logout) {
-                performLogout();
+                Intent intent = new Intent(MainActivity.this, LoginActivity.class);
+                startActivity(intent);
             }
 
             drawerLayout.closeDrawer(GravityCompat.START);
@@ -79,6 +80,14 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
+    @Override
+    public boolean onSupportNavigateUp() {
+        NavController navController = ((NavHostFragment) Objects.requireNonNull(getSupportFragmentManager()
+                .findFragmentById(R.id.nav_host_fragment))).getNavController();
+        return NavigationUI.navigateUp(navController, appBarConfiguration)
+                || super.onSupportNavigateUp();
+    }
+
     private void performLogout() {
         // Clear any logged-in user data
         // For example, clear shared preferences or database entries
@@ -89,24 +98,4 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent);
         finish();
     }
-
-    @Override
-    public boolean onSupportNavigateUp() {
-        return NavigationUI.navigateUp(navController, appBarConfiguration)
-                || super.onSupportNavigateUp();
-    }
-
-    public void navigateToDoctorList(long currentPatientId) {
-        Bundle args = new Bundle();
-        args.putLong("currentPatientId", currentPatientId);
-
-        DoctorListFragment fragment = new DoctorListFragment();
-        fragment.setArguments(args);
-
-        getSupportFragmentManager().beginTransaction()
-                .replace(R.id.nav_host_fragment, fragment)
-                .addToBackStack(null)
-                .commit();
-    }
-
 }
