@@ -10,4 +10,7 @@
     <color name="colorPrimary">#6200EE</color>
     <color name="colorPrimaryDark">#3700B3</color>
     <color name="colorAccent">#03DAC5</color>
+    <color name="design_default_color_primary">#6200EE</color>
+    <color name="design_default_color_secondary">#03DAC5</color>
+    <color name="high_contrast_text">#000000</color>
 </resources>

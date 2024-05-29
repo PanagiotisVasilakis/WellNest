@@ -6,20 +6,20 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
-import database.PatientInfoDb.Patient;
-import myapplication.pages.R;
 import java.util.List;
+import database.PatientInfoDb.PatientInfo;
+import myapplication.pages.R;
 
 public class PatientInfoAdapter extends RecyclerView.Adapter<PatientInfoAdapter.PatientInfoViewHolder> {
 
-    private List<Patient> patientInfos;
+    private List<PatientInfo> patientInfos;
     private OnItemClickListener listener;
 
     public interface OnItemClickListener {
-        void onItemClick(Patient patientInfo);
+        void onItemClick(PatientInfo patientInfo);
     }
 
-    public PatientInfoAdapter(List<Patient> patientInfos, OnItemClickListener listener) {
+    public PatientInfoAdapter(List<PatientInfo> patientInfos, OnItemClickListener listener) {
         this.patientInfos = patientInfos;
         this.listener = listener;
     }
@@ -33,9 +33,8 @@ public class PatientInfoAdapter extends RecyclerView.Adapter<PatientInfoAdapter.
 
     @Override
     public void onBindViewHolder(@NonNull PatientInfoViewHolder holder, int position) {
-        Patient patientInfo = patientInfos.get(position);
+        PatientInfo patientInfo = patientInfos.get(position);
         holder.nameTextView.setText(patientInfo.getName());
-        holder.ageTextView.setText(String.valueOf(patientInfo.getAge()));
         holder.itemView.setOnClickListener(v -> listener.onItemClick(patientInfo));
     }
 
@@ -44,19 +43,17 @@ public class PatientInfoAdapter extends RecyclerView.Adapter<PatientInfoAdapter.
         return patientInfos.size();
     }
 
-    public void setPatientInfos(List<Patient> patientInfos) {
+    public void setPatientInfos(List<PatientInfo> patientInfos) {
         this.patientInfos = patientInfos;
         notifyDataSetChanged();
     }
 
     static class PatientInfoViewHolder extends RecyclerView.ViewHolder {
         TextView nameTextView;
-        TextView ageTextView;
 
         public PatientInfoViewHolder(@NonNull View itemView) {
             super(itemView);
             nameTextView = itemView.findViewById(R.id.nameTextView);
-            ageTextView = itemView.findViewById(R.id.ageTextView);
         }
     }
 }

@@ -1,3 +1,5 @@
+import com.android.build.api.dsl.Lint
+
 plugins {
     alias(libs.plugins.android.application)
 }
@@ -31,6 +33,12 @@ android {
         includeInBundle = true
     }
     buildToolsVersion = "34.0.0"
+    lint{
+        warningsAsErrors = true
+    }
+    tasks.withType<JavaCompile> {
+        options.compilerArgs.add("-Xlint:deprecation")
+    }
 }
 
 dependencies {

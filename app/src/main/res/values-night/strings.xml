@@ -1,7 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">WellNest</string>
-    <string name="navigation_drawer_open">Open navigation drawer</string>
-    <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="sign_in_as">Sign In as</string>
     <string name="patient">Patient</string>
     <string name="doctor">Doctor</string>
@@ -17,6 +15,7 @@
     <string name="logout">Logout</string>
     <string name="i_am_a_doctor">I am a Doctor</string>
     <string name="i_am_a_patient">I am a Patient</string>
+    <string name="app_name">WellNest</string>
     <string name="confirm">Confirm</string>
     <string name="confirm_selection">Are you sure you want to register as a %1$s?</string>
     <string name="yes">Yes</string>
