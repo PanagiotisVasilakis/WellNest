@@ -33,7 +33,7 @@ public class DoctorListFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_doctor_list, container, false);
 
         dbHelper = new DoctorsDb(getActivity());
-        doctorAdapter = new DoctorAdapter(new ArrayList<>(), this::showDoctorProfile);
+        doctorAdapter = new DoctorAdapter(new ArrayList<>(), this::showAddDoctor);
 
         RecyclerView recyclerView = view.findViewById(R.id.recyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
@@ -43,19 +43,17 @@ public class DoctorListFragment extends Fragment {
             currentPatientId = getArguments().getLong("currentPatientId", -1);
         }
 
-        loadDoctorsForPatient();
+        getPatientDoctors();
 
         return view;
     }
 
-    private void loadDoctorsForPatient() {
-        if (currentPatientId != -1) {
-            List<Doctor> doctors = dbHelper.getDoctorsForPatient(currentPatientId);
-            doctorAdapter.setDoctors(doctors);
-        }
+    private void getPatientDoctors() {
+        List<Doctor> doctors = dbHelper.getAllDoctorsFromPatientDoctors();
+        doctorAdapter.setDoctors(doctors);
     }
 
-    private void showDoctorProfile(Doctor doctor) {
+    private void showAddDoctor(Doctor doctor) {
         // Implement showing doctor profile logic here
         Toast.makeText(getActivity(), "Doctor: " + doctor.getName(), Toast.LENGTH_SHORT).show();
     }
