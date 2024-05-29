@@ -181,6 +181,14 @@ public class DoctorsDb extends SQLiteOpenHelper {
         cursor.close();
         return null;
     }
+    public void addDoctorToPatient(Doctor doctor, long patientId) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put(COLUMN_PATIENT_ID, patientId);
+        values.put(COLUMN_DOCTOR_ID, doctor.getId());
+        db.insert(TABLE_PATIENT_DOCTORS, null, values);
+    }
+
 
     // Inner Doctor class
     public static class Doctor {

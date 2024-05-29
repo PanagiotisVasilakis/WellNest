@@ -17,6 +17,7 @@ import android.widget.SearchView;
 import android.widget.TextView;
 import database.DoctorsDb;
 import database.DoctorsDb.Doctor;
+import database.PatientInfoDb;
 import myapplication.pages.R;
 import java.util.ArrayList;
 import java.util.List;
@@ -27,7 +28,7 @@ public class AddDoctorFragment extends Fragment {
     private static DoctorsDb dbHelper;
     private DoctorAdapter doctorAdapter;
     private List<Doctor> doctorList;
-
+    private PatientInfoDb patientInfoDb;
     public AddDoctorFragment() {
         // Required empty public constructor
     }
@@ -93,7 +94,7 @@ public class AddDoctorFragment extends Fragment {
         View popupView = (View) doctorProfile.getDoctorInfo(doctor);
         PopupWindow popupWindow = new PopupWindow(popupView, ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT, true);
         popupWindow.showAtLocation(getView(), Gravity.CENTER, 0, 0);
-        doctorProfile.addDoctor(popupView, popupWindow);
+        doctorProfile.addDoctor(popupView, popupWindow, doctor);
     }
 
     // 19. Doctor Profile class
@@ -118,9 +119,12 @@ public class AddDoctorFragment extends Fragment {
             return popupView;
         }
 
-        public void addDoctor(View popupView, PopupWindow popupWindow) {
+        public void addDoctor(View popupView, PopupWindow popupWindow, Doctor doctor) {
             Button btnAddDoctor = popupView.findViewById(R.id.btnAddDoctor);
-            btnAddDoctor.setOnClickListener(v -> popupWindow.dismiss());
+            btnAddDoctor.setOnClickListener(v -> {
+                dbHelper.addDoctorToPatient(doctor, PatientInfoDb.PatientInfo.getId()); // currentPatientId should be the id of the current patient
+                popupWindow.dismiss();
+            });
         }
     }
 }

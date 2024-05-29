@@ -15,7 +15,7 @@ public class PatientInfoDb extends SQLiteOpenHelper {
     private static final int DATABASE_VERSION = 1;
 
     public static final String TABLE_PATIENTS = "patients";
-    public static final String COLUMN_ID = "_id";
+    public static final String COLUMN_ID = "id";
     public static final String COLUMN_NAME = "name";
     public static final String COLUMN_AGE = "age";
     public static final String COLUMN_EMAIL = "email";
@@ -45,6 +45,7 @@ public class PatientInfoDb extends SQLiteOpenHelper {
     public void addPatient(PatientInfo patient) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
+        values.put(COLUMN_ID, PatientInfo.getId());
         values.put(COLUMN_NAME, patient.getName());
         values.put(COLUMN_AGE, patient.getAge());
         values.put(COLUMN_EMAIL, patient.getEmail());
@@ -86,8 +87,18 @@ public class PatientInfoDb extends SQLiteOpenHelper {
         return patientList;
     }
 
+    public boolean isPatientExists(int PatientId) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        String selection = COLUMN_ID + " = ?";
+        String[] selectionArgs = { String.valueOf(PatientId) };
+        Cursor cursor = db.query(TABLE_PATIENTS, null, selection, selectionArgs, null, null, null);
+        boolean exists = (cursor.getCount() > 0);
+        cursor.close();
+        return exists;
+    }
+
     public static class PatientInfo {
-        private long id;
+        private static long id;
         private String name;
         private int age;
         private String email;
@@ -97,19 +108,19 @@ public class PatientInfoDb extends SQLiteOpenHelper {
         }
 
         public PatientInfo(long id, String name, int age, String email) {
-            this.id = id;
+            PatientInfo.id = id;
             this.name = name;
             this.age = age;
             this.email = email;
         }
 
         // Getters and Setters
-        public long getId() {
+        public static long getId() {
             return id;
         }
 
         public void setId(long id) {
-            this.id = id;
+            PatientInfo.id = id;
         }
 
         public String getName() {

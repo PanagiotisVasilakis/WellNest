@@ -84,12 +84,15 @@ public class RoleSelectionActivity extends AppCompatActivity {
                 finish();
             }
         } else if (role.equals("Patient")) {
-            PatientInfoDb.PatientInfo patient = new PatientInfoDb.PatientInfo();
-            patient.setName(name);
-            patient.setAge(age);
-            patient.setEmail(email);
-            patientInfoDb.addPatient(patient);
-            Toast.makeText(this, "Registered as Patient", Toast.LENGTH_SHORT).show();
+            if (!patientInfoDb.isPatientExists(id)) {
+                PatientInfoDb.PatientInfo patient = new PatientInfoDb.PatientInfo();
+                patient.setId(id);
+                patient.setName(name);
+                patient.setAge(age);
+                patient.setEmail(email);
+                patientInfoDb.addPatient(patient);
+                Toast.makeText(this, "Registered as Patient", Toast.LENGTH_SHORT).show();
+            }
 
             // Navigate to MainActivity
             Intent intent = new Intent(RoleSelectionActivity.this, MainActivity.class);
