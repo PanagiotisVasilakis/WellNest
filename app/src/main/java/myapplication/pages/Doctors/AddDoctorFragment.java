@@ -1,5 +1,7 @@
 package myapplication.pages.Doctors;
 
+import static myapplication.pages.UserTypes.RoleSelectionActivity.Id;
+
 import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -39,6 +41,7 @@ public class AddDoctorFragment extends Fragment {
                              @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_add_doctor, container, false);
 
+        patientInfoDb = new PatientInfoDb(getActivity());
         dbHelper = new DoctorsDb(getActivity());
         doctorList = new ArrayList<>();
         doctorAdapter = new DoctorAdapter(doctorList, this::showDoctorProfile);
@@ -121,8 +124,11 @@ public class AddDoctorFragment extends Fragment {
 
         public void addDoctor(View popupView, PopupWindow popupWindow, Doctor doctor) {
             Button btnAddDoctor = popupView.findViewById(R.id.btnAddDoctor);
+
             btnAddDoctor.setOnClickListener(v -> {
-                dbHelper.addDoctorToPatient(doctor, PatientInfoDb.PatientInfo.getId()); // currentPatientId should be the id of the current patient
+                PatientInfoDb.PatientInfo patientInfo = patientInfoDb.getPatientById(Id);
+                long patientId = patientInfo.getId();
+                dbHelper.addDoctorToPatient(doctor, patientId); // currentPatientId should be the id of the current patient
                 popupWindow.dismiss();
             });
         }

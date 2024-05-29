@@ -97,6 +97,24 @@ public class PatientInfoDb extends SQLiteOpenHelper {
         return exists;
     }
 
+    public PatientInfo getPatientById(long id) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        String selection = COLUMN_ID + " = ?";
+        String[] selectionArgs = { String.valueOf(id) };
+        Cursor cursor = db.query(TABLE_PATIENTS, null, selection, selectionArgs, null, null, null);
+        if (cursor.moveToFirst()) {
+            String name = cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_NAME));
+            int age = cursor.getInt(cursor.getColumnIndexOrThrow(COLUMN_AGE));
+            String email = cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_EMAIL));
+
+            PatientInfo patient = new PatientInfo(id, name, age, email);
+            cursor.close();
+            return patient;
+        }
+        cursor.close();
+        return null;
+    }
+
     public static class PatientInfo {
         private static long id;
         private String name;

@@ -24,7 +24,7 @@ public class RoleSelectionActivity extends AppCompatActivity {
     private String name;
     private int age;
     private String contact;
-    private int id;
+    public static int Id;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -43,7 +43,7 @@ public class RoleSelectionActivity extends AppCompatActivity {
         name = intent.getStringExtra("name");
         age = intent.getIntExtra("age", 0);
         contact = intent.getStringExtra("phone");
-        id = intent.getIntExtra("id", 0);
+        Id = intent.getIntExtra("id", 0);
 
         btnPatient.setOnClickListener(v -> showConfirmationDialog("Patient"));
         btnDoctor.setOnClickListener(v -> showConfirmationDialog("Doctor"));
@@ -61,17 +61,17 @@ public class RoleSelectionActivity extends AppCompatActivity {
     private void registerUser(String role) {
         if (role.equals("Doctor")) {
             // Check if the doctor already exists
-            if (!doctorsDb.isDoctorExists(id)) {
+            if (!doctorsDb.isDoctorExists(Id)) {
                 // Add user to DoctorsDb
                 DoctorsDb.Doctor doctor = new DoctorsDb.Doctor();
-                doctor.setId(id);
+                doctor.setId(Id);
                 SQLiteDatabase db = doctorsDb.getWritableDatabase();
                 doctorsDb.doctorAddition(db, doctor);
                 db.close();
                 // Navigate to DoctorRegistrationFragment
                 DoctorRegistrationFragment doctorRegistrationFragment = new DoctorRegistrationFragment();
                 Bundle args = new Bundle();
-                args.putInt("doctor_id", id); // 'id' is the doctor's ID
+                args.putInt("doctor_id", Id); // 'id' is the doctor's ID
                 doctorRegistrationFragment.setArguments(args);
                 getSupportFragmentManager().beginTransaction()
                         .replace(R.id.container, doctorRegistrationFragment)
@@ -84,9 +84,9 @@ public class RoleSelectionActivity extends AppCompatActivity {
                 finish();
             }
         } else if (role.equals("Patient")) {
-            if (!patientInfoDb.isPatientExists(id)) {
+            if (!patientInfoDb.isPatientExists(Id)) {
                 PatientInfoDb.PatientInfo patient = new PatientInfoDb.PatientInfo();
-                patient.setId(id);
+                patient.setId(Id);
                 patient.setName(name);
                 patient.setAge(age);
                 patient.setEmail(email);
