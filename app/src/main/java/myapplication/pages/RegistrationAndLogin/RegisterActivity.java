@@ -8,6 +8,7 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import database.UserDb;
 import myapplication.pages.R;
+import myapplication.pages.UserTypes.RoleSelectionActivity;
 
 public class RegisterActivity extends AppCompatActivity {
 
@@ -45,10 +46,19 @@ public class RegisterActivity extends AppCompatActivity {
                 user.setPhone(phone);
                 userDb.addUser(user);
 
-                Toast.makeText(RegisterActivity.this, "Registration Successful", Toast.LENGTH_SHORT).show();
-                Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);
+                Intent intent = new Intent(RegisterActivity.this, RoleSelectionActivity.class);
+                intent.putExtra("email", email);
+                intent.putExtra("name", name);
+                intent.putExtra("age", age);
+                intent.putExtra("phone", phone);
+                intent.putExtra("id", user.getId());
                 startActivity(intent);
                 finish();
+
+//                Toast.makeText(RegisterActivity.this, "Registration Successful", Toast.LENGTH_SHORT).show();
+//                Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);
+//                startActivity(intent);
+//                finish();
             }
         });
     }

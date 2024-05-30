@@ -20,8 +20,11 @@ public class RoleSelectionActivity extends AppCompatActivity {
     private DoctorsDb doctorsDb;
     private PatientInfoDb patientInfoDb;
     private UserDb userDb;
-    private String email, name;
+    private String email;
+    private String name;
     private int age;
+    private String contact;
+    public static int Id;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -39,6 +42,8 @@ public class RoleSelectionActivity extends AppCompatActivity {
         email = intent.getStringExtra("email");
         name = intent.getStringExtra("name");
         age = intent.getIntExtra("age", 0);
+        contact = intent.getStringExtra("phone");
+        Id = intent.getIntExtra("id", 0);
 
         btnPatient.setOnClickListener(v -> showConfirmationDialog("Patient"));
         btnDoctor.setOnClickListener(v -> showConfirmationDialog("Doctor"));
@@ -54,38 +59,40 @@ public class RoleSelectionActivity extends AppCompatActivity {
     }
 
     private void registerUser(String role) {
-        // Register in UserDb
-        UserDb.User user = new UserDb.User();
-        user.setEmail(email);
-        user.setName(name);
-        user.setAge(age);
-        // Add a placeholder password and phone
-        user.setPassword("password123");
-        user.setPhone("123-456-7890");
-        userDb.addUser(user);
-
         if (role.equals("Doctor")) {
-            // Add user to DoctorsDb
-            DoctorsDb.Doctor doctor = new DoctorsDb.Doctor();
-            doctor.setEmail(email);
-            doctor.setName(name);
-            doctor.setContact("123-456-7890"); // Placeholder contact
-            SQLiteDatabase db = doctorsDb.getWritableDatabase();
-            doctorsDb.doctorAddition(db, doctor);
-            db.close();
-
-            // Navigate to DoctorRegistrationFragment
-            getSupportFragmentManager().beginTransaction()
-                    .replace(R.id.container, new DoctorRegistrationFragment())
-                    .addToBackStack(null)
-                    .commit();
+            // Check if the doctor already exists
+            if (!doctorsDb.isDoctorExists(Id)) {
+                // Add user to DoctorsDb
+                DoctorsDb.Doctor doctor = new DoctorsDb.Doctor();
+                doctor.setId(Id);
+                SQLiteDatabase db = doctorsDb.getWritableDatabase();
+                doctorsDb.doctorAddition(db, doctor);
+                db.close();
+                // Navigate to DoctorRegistrationFragment
+                DoctorRegistrationFragment doctorRegistrationFragment = new DoctorRegistrationFragment();
+                Bundle args = new Bundle();
+                args.putInt("doctor_id", Id); // 'id' is the doctor's ID
+                doctorRegistrationFragment.setArguments(args);
+                getSupportFragmentManager().beginTransaction()
+                        .replace(R.id.container, doctorRegistrationFragment)
+                        .addToBackStack(null)
+                        .commit();
+            } else {
+                // Navigate to MainActivity
+                Intent intent = new Intent(RoleSelectionActivity.this, MainActivity.class);
+                startActivity(intent);
+                finish();
+            }
         } else if (role.equals("Patient")) {
-            PatientInfoDb.PatientInfo patient = new PatientInfoDb.PatientInfo();
-            patient.setName(name);
-            patient.setAge(age);
-            patient.setEmail(email);
-            patientInfoDb.addPatient(patient);
-            Toast.makeText(this, "Registered as Patient", Toast.LENGTH_SHORT).show();
+            if (!patientInfoDb.isPatientExists(Id)) {
+                PatientInfoDb.PatientInfo patient = new PatientInfoDb.PatientInfo();
+                patient.setId(Id);
+                patient.setName(name);
+                patient.setAge(age);
+                patient.setEmail(email);
+                patientInfoDb.addPatient(patient);
+                Toast.makeText(this, "Registered as Patient", Toast.LENGTH_SHORT).show();
+            }
 
             // Navigate to MainActivity
             Intent intent = new Intent(RoleSelectionActivity.this, MainActivity.class);

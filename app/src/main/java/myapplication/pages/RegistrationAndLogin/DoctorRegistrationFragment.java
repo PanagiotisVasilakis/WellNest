@@ -18,7 +18,18 @@ import database.DoctorsDb;
 
 public class DoctorRegistrationFragment extends Fragment {
 
-    private EditText etName, etEmail, etSpecialization, etPhone;
+    private EditText etName, etEmail, etLocation, etSpecialization, etPhone;
+    private int doctorId;
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+        // Retrieve the doctor's ID from the arguments
+        if (getArguments() != null) {
+            doctorId = getArguments().getInt("doctor_id");
+        }
+    }
 
     @Nullable
     @Override
@@ -27,6 +38,7 @@ public class DoctorRegistrationFragment extends Fragment {
 
         etName = view.findViewById(R.id.etName);
         etEmail = view.findViewById(R.id.etEmail);
+        etLocation = view.findViewById(R.id.etLocation);
         etSpecialization = view.findViewById(R.id.etSpecialization);
         etPhone = view.findViewById(R.id.etPhone);
 
@@ -43,18 +55,21 @@ public class DoctorRegistrationFragment extends Fragment {
             if (isAdded() && getView() != null) {
                 String name = etName.getText().toString();
                 String email = etEmail.getText().toString();
+                String location = etLocation.getText().toString();
                 String specialization = etSpecialization.getText().toString();
                 String phone = etPhone.getText().toString();
 
                 DoctorsDb.Doctor doctor = new DoctorsDb.Doctor();
                 doctor.setName(name);
                 doctor.setEmail(email);
+                doctor.setLocation(location);
                 doctor.setSpecialization(specialization);
                 doctor.setContact(phone);
 
+                // Update the doctor's information in the database
                 DoctorsDb doctorsDb = new DoctorsDb(getActivity());
                 SQLiteDatabase db = doctorsDb.getWritableDatabase();
-                doctorsDb.doctorAddition(db, doctor);
+                doctorsDb.updateDoctor(db, doctorId, doctor);
                 db.close();
 
                 Toast.makeText(getActivity(), "Registered as Doctor", Toast.LENGTH_SHORT).show();

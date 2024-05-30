@@ -15,7 +15,7 @@ public class DoctorsDb extends SQLiteOpenHelper {
     private static final int DATABASE_VERSION = 1;
 
     public static final String TABLE_DOCTORS = "doctors";
-    public static final String COLUMN_ID = "_id";
+    public static final String COLUMN_ID = "id";
     public static final String COLUMN_NAME = "name";
     public static final String COLUMN_LOCATION = "location";
     public static final String COLUMN_AVAILABILITY = "availability";
@@ -29,7 +29,7 @@ public class DoctorsDb extends SQLiteOpenHelper {
 
     private static final String TABLE_CREATE_DOCTORS =
             "CREATE TABLE " + TABLE_DOCTORS + " (" +
-                    COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                    COLUMN_ID + " INTEGER, " +
                     COLUMN_NAME + " TEXT, " +
                     COLUMN_LOCATION + " TEXT, " +
                     COLUMN_AVAILABILITY + " TEXT, " +
@@ -63,6 +63,7 @@ public class DoctorsDb extends SQLiteOpenHelper {
 
     public void doctorAddition(SQLiteDatabase db, Doctor doctor) {
         ContentValues values = new ContentValues();
+        values.put(COLUMN_ID, doctor.getId());
         values.put(COLUMN_NAME, doctor.getName());
         values.put(COLUMN_LOCATION, doctor.getLocation());
         values.put(COLUMN_AVAILABILITY, doctor.getAvailability());
@@ -115,15 +116,57 @@ public class DoctorsDb extends SQLiteOpenHelper {
         return doctorList;
     }
 
-    public List<Doctor> getDoctorsForPatient(long patientId) {
+    public boolean isDoctorExists(int doctorId) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        String selection = COLUMN_ID + " = ?";
+        String[] selectionArgs = { String.valueOf(doctorId) };
+        Cursor cursor = db.query(TABLE_DOCTORS, null, selection, selectionArgs, null, null, null);
+        boolean exists = (cursor.getCount() > 0);
+        cursor.close();
+        return exists;
+    }
+
+    public void updateDoctor(SQLiteDatabase db, int doctorId, Doctor doctor) {
+        ContentValues values = new ContentValues();
+        values.put(COLUMN_NAME, doctor.getName());
+        values.put(COLUMN_LOCATION, doctor.getLocation());
+        values.put(COLUMN_AVAILABILITY, doctor.getAvailability());
+        values.put(COLUMN_CONTACT, doctor.getContact());
+        values.put(COLUMN_EMAIL, doctor.getEmail());
+        values.put(COLUMN_SPECIALIZATION, doctor.getSpecialization());
+
+        String selection = COLUMN_ID + " = ?";
+        String[] selectionArgs = { String.valueOf(doctorId) };
+
+        db.update(TABLE_DOCTORS, values, selection, selectionArgs);
+    }
+
+    public List<Doctor> getAllDoctorsFromPatientDoctors() {
         List<Doctor> doctorList = new ArrayList<>();
         SQLiteDatabase db = this.getReadableDatabase();
 
-        String query = "SELECT d.* FROM " + TABLE_DOCTORS + " d INNER JOIN " + TABLE_PATIENT_DOCTORS + " pd ON d." + COLUMN_ID + " = pd." + COLUMN_DOCTOR_ID + " WHERE pd." + COLUMN_PATIENT_ID + " = ?";
-        Cursor cursor = db.rawQuery(query, new String[]{String.valueOf(patientId)});
+        String query = "SELECT * FROM " + TABLE_PATIENT_DOCTORS;
+        Cursor cursor = db.rawQuery(query, null);
 
         while (cursor.moveToNext()) {
-            long id = cursor.getLong(cursor.getColumnIndexOrThrow(COLUMN_ID));
+            long id = cursor.getLong(cursor.getColumnIndexOrThrow(COLUMN_DOCTOR_ID));
+            // Fetch other doctor details using the id from the TABLE_DOCTORS
+            Doctor doctor = getDoctorById(id);
+            if (doctor != null) {
+                doctorList.add(doctor);
+            }
+        }
+        cursor.close();
+
+        return doctorList;
+    }
+
+    public Doctor getDoctorById(long id) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        String selection = COLUMN_ID + " = ?";
+        String[] selectionArgs = { String.valueOf(id) };
+        Cursor cursor = db.query(TABLE_DOCTORS, null, selection, selectionArgs, null, null, null);
+        if (cursor.moveToFirst()) {
             String name = cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_NAME));
             String location = cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_LOCATION));
             String availability = cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_AVAILABILITY));
@@ -132,13 +175,20 @@ public class DoctorsDb extends SQLiteOpenHelper {
             String specialization = cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_SPECIALIZATION));
 
             Doctor doctor = new Doctor(id, name, location, availability, contact, email, specialization);
-            doctor.setId(id);
-            doctorList.add(doctor);
+            cursor.close();
+            return doctor;
         }
         cursor.close();
-
-        return doctorList;
+        return null;
     }
+    public void addDoctorToPatient(Doctor doctor, long patientId) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put(COLUMN_PATIENT_ID, patientId);
+        values.put(COLUMN_DOCTOR_ID, doctor.getId());
+        db.insert(TABLE_PATIENT_DOCTORS, null, values);
+    }
+
 
     // Inner Doctor class
     public static class Doctor {
