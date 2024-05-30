@@ -1,0 +1,30 @@
+<resources>
+    <string name="app_name">WellNest</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="sign_in_as">Sign In as</string>
+    <string name="patient">Patient</string>
+    <string name="doctor">Doctor</string>
+    <string name="email">Email</string>
+    <string name="password">Password</string>
+    <string name="login">Login</string>
+    <string name="sign_up">Sign Up</string>
+    <string name="hint_email">Email</string>
+    <string name="hint_password">Password</string>
+    <string name="button_login">Login</string>
+    <string name="button_signup">Sign Up</string>
+    <string name="logo_description">WellNest logo</string>
+    <string name="logout">Logout</string>
+    <string name="i_am_a_doctor">I am a Doctor</string>
+    <string name="i_am_a_patient">I am a Patient</string>
+    <string name="confirm">Confirm</string>
+    <string name="confirm_selection">Are you sure you want to register as a %1$s?</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
+    <string name="name">name</string>
+    <string name="age">Age</string>
+    <string name="phone">Phone</string>
+    <string name="specialization">Specialization</string>
+    <string name="submit">Submit</string>
+    <string name="location">Location</string>
+</resources>
