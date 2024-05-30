@@ -1,10 +1,12 @@
-package myapplication.pages;
+package myapplication.pages.CheckUps;
 
 import android.os.Bundle;
 import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import myapplication.pages.R;
 
 public class CheckupFragment extends Fragment {
 
@@ -44,10 +46,6 @@ public class CheckupFragment extends Fragment {
             // Implementation here
         }
 
-        public void gotoMakeAppointment() {
-            // Implementation here
-        }
-
         public void gotoDailyState() {
             // Implementation here
         }
@@ -61,10 +59,6 @@ public class CheckupFragment extends Fragment {
         }
 
         public void returnExaminations() {
-            // Implementation here
-        }
-
-        public void returnMakeAppointment() {
             // Implementation here
         }
 

@@ -2,6 +2,14 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <!-- Add UI components here -->
+    <ExpandableListView
+        android:id="@+id/expandableListView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:divider="@android:color/darker_gray"
+        android:dividerHeight="0.5dp"
+        android:indicatorLeft="?android:attr/expandableListPreferredItemIndicatorLeft"
+        android:childDivider="@android:color/darker_gray"
+        android:padding="10dp" />
 
 </RelativeLayout>
