@@ -31,7 +31,7 @@ public class MedicalAssistFragment extends Fragment {
         btnMakeAppointment.setOnClickListener(v -> navController.navigate(R.id.nav_make_appointment));
         btnNewVaccines.setOnClickListener(v -> navController.navigate(R.id.nav_new_vaccines));
         btnEditPharmacyList.setOnClickListener(v -> navController.navigate(R.id.nav_edit_pharmacy_list));
-        btnFindCheckups.setOnClickListener(v -> navController.navigate(R.id.nav_checkup));
+        btnFindCheckups.setOnClickListener(v -> navController.navigate(R.id.checkupFragment));
         btnAddDoctor.setOnClickListener(v -> navController.navigate(R.id.nav_add_doctor));
 
         return view;

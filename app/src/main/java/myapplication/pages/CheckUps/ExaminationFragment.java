@@ -15,32 +15,38 @@ import java.util.List;
 import database.CheckUpDb;
 import myapplication.pages.R;
 
-public class CheckupFragment extends Fragment {
+public class ExaminationFragment extends Fragment {
     private RecyclerView recyclerView;
-    private CheckupAdapter checkupAdapter;
+    private ExaminationAdapter examinationAdapter;
     private CheckUpDb databaseHelper;
+    private int checkupId;
 
-    public CheckupFragment() {
+    public ExaminationFragment() {
         // Required empty public constructor
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_checkup, container, false);
+        View view = inflater.inflate(R.layout.fragment_examination, container, false);
 
         recyclerView = view.findViewById(R.id.recyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
         databaseHelper = new CheckUpDb(getContext());
 
-        // Fetch checkups from the database in a background thread
+        // Get checkupId from arguments
+        if (getArguments() != null) {
+            checkupId = getArguments().getInt("checkupId");
+        }
+
+        // Fetch examinations from the database in a background thread
         new Thread(() -> {
-            List<Checkup> checkupList = databaseHelper.getCheckups();
-            Log.d("CheckupFragment", "Fetched Checkup List: " + checkupList.size());
+            List<Examination> examinationList = databaseHelper.getExaminations(checkupId);
+            Log.d("ExaminationFragment", "Fetched Examination List: " + examinationList.size());
             new Handler(Looper.getMainLooper()).post(() -> {
-                checkupAdapter = new CheckupAdapter(checkupList);
-                recyclerView.setAdapter(checkupAdapter);
+                examinationAdapter = new ExaminationAdapter(examinationList);
+                recyclerView.setAdapter(examinationAdapter);
             });
         }).start();
 

@@ -13,4 +13,8 @@
     <color name="design_default_color_primary">#6200EE</color>
     <color name="design_default_color_secondary">#03DAC5</color>
     <color name="high_contrast_text">#000000</color>
+    <color name="background_color">#E8F5E9</color> <!-- Light green background -->
+    <color name="item_background">#C8E6C9</color> <!-- Slightly darker green for items -->
+    <color name="text_color">#000000</color> <!-- Black text color -->
+    <color name="item_selected_background">#AED581</color> <!-- Highlight color for selected item -->
 </resources>
