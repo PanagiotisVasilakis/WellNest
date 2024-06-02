@@ -16,7 +16,7 @@
 
     <fragment
         android:id="@+id/nav_daily_state"
-        android:name="myapplication.pages.HealthProgramFragment"
+        android:name="myapplication.pages.DailyState.HealthProgramFragment"
         android:label="Daily State"
         tools:layout="@layout/fragment_health_program" />
 
