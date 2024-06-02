@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.mikhaellopez.circularprogressbar.CircularProgressBar;
@@ -21,9 +22,9 @@ public class HealthProgramFragment extends Fragment {
     private HealthProgramClass healthProgramClass;
     private DailyStateDb dbHelper;
     private CircularProgressBar progressDaily, progressDiet, progressExercise;
+    private TextView progressDailyText, progressDietText, progressExerciseText;
 
     public HealthProgramFragment() {
-        // Required empty public constructor
         healthProgramClass = new HealthProgramClass();
     }
 
@@ -36,26 +37,30 @@ public class HealthProgramFragment extends Fragment {
         progressDaily = view.findViewById(R.id.progress_daily);
         progressDiet = view.findViewById(R.id.progress_diet);
         progressExercise = view.findViewById(R.id.progress_exercise);
+        progressDailyText = view.findViewById(R.id.progress_daily_text);
+        progressDietText = view.findViewById(R.id.progress_diet_text);
+        progressExerciseText = view.findViewById(R.id.progress_exercise_text);
 
-        // Example input percentages
         int dietPercentage = 64;
         int exercisePercentage = 90;
 
-        updateProgress("Diet", dietPercentage);
-        updateProgress("Exercise", exercisePercentage);
+        updateProgress("Diet", dietPercentage, progressDiet, progressDietText);
+        updateProgress("Exercise", exercisePercentage, progressExercise, progressExerciseText);
 
         int dailyProgress = (dietPercentage + exercisePercentage) / 2;
-        progressDaily.setProgressWithAnimation((float) dailyProgress, 1000L); // Animation for better UX
+        updateProgress("Daily", dailyProgress, progressDaily, progressDailyText);
 
         setupSuggestionsList(view);
 
         return view;
     }
 
-    private void updateProgress(String category, int percentage) {
+    private void updateProgress(String category, int percentage, CircularProgressBar progressBar, TextView textView) {
         EditCategoryProgressFragment editFragment = new EditCategoryProgressFragment(dbHelper);
         EditCategoryProgressFragment.Subcategory subcategory = editFragment.new Subcategory(getContext());
         subcategory.saveProgress(category, percentage);
+        progressBar.setProgressWithAnimation((float) percentage, 1000L);
+        textView.setText(new StringBuilder().append(percentage).append("%").toString());
     }
 
     private void setupSuggestionsList(View view) {
@@ -65,7 +70,6 @@ public class HealthProgramFragment extends Fragment {
     }
 
     public class DailyState {
-
         public void getHealthProgram() {
             healthProgramClass.getHealthProgram("Food Pyramid");
         }
@@ -75,13 +79,10 @@ public class HealthProgramFragment extends Fragment {
         }
 
         public void showProgramDetected() {
-            // Display a message indicating that a program has been detected
-            Toast.makeText(getContext(), "Program Detected!", Toast.LENGTH_SHORT).show();
         }
     }
 
     public class HealthProgramClass {
-
         public void calculateBMI(double weight, double height) {
             double bmi = weight / (height * height);
             saveBMI(bmi);
@@ -105,13 +106,12 @@ public class HealthProgramFragment extends Fragment {
             if (cursor != null && cursor.moveToFirst()) {
                 String name = cursor.getString(cursor.getColumnIndexOrThrow(DailyStateDb.COLUMN_NAME));
                 String description = cursor.getString(cursor.getColumnIndexOrThrow(DailyStateDb.COLUMN_DESCRIPTION));
-                // Use this data as needed
                 cursor.close();
             }
         }
 
         public void showProgram(String programName) {
-            getHealthProgram(programName);
+            healthProgramClass.getHealthProgram(programName);
             // Display the program details to the user
         }
         public void showSubcategory() {

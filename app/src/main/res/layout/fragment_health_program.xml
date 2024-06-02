@@ -51,43 +51,85 @@
             android:padding="16dp">
 
             <!-- Daily Progress -->
-            <com.mikhaellopez.circularprogressbar.CircularProgressBar
-                android:id="@+id/progress_daily"
+            <FrameLayout
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                app:cpb_progress="40"
-                app:cpb_progress_max="100"
-                app:cpb_progressbar_width="10dp"
-                app:cpb_background_progressbar_width="10dp"
-                app:cpb_background_progressbar_color="@color/gray"
-                app:cpb_progressbar_color="@color/red"/>
+                android:layout_weight="1">
+
+                <com.mikhaellopez.circularprogressbar.CircularProgressBar
+                    android:id="@+id/progress_daily"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:cpb_progress="40"
+                    app:cpb_progress_max="100"
+                    app:cpb_progressbar_width="10dp"
+                    app:cpb_background_progressbar_width="10dp"
+                    app:cpb_background_progressbar_color="@color/gray"
+                    app:cpb_progressbar_color="@color/red"/>
+
+                <TextView
+                    android:id="@+id/progress_daily_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:text="40%"
+                    android:textSize="18sp"
+                    android:textColor="@android:color/black"/>
+            </FrameLayout>
 
             <!-- Diet -->
-            <com.mikhaellopez.circularprogressbar.CircularProgressBar
-                android:id="@+id/progress_diet"
+            <FrameLayout
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                app:cpb_progress="64"
-                app:cpb_progress_max="100"
-                app:cpb_progressbar_width="10dp"
-                app:cpb_background_progressbar_width="10dp"
-                app:cpb_background_progressbar_color="@color/gray"
-                app:cpb_progressbar_color="@color/green"/>
+                android:layout_weight="1">
+
+                <com.mikhaellopez.circularprogressbar.CircularProgressBar
+                    android:id="@+id/progress_diet"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:cpb_progress="64"
+                    app:cpb_progress_max="100"
+                    app:cpb_progressbar_width="10dp"
+                    app:cpb_background_progressbar_width="10dp"
+                    app:cpb_background_progressbar_color="@color/gray"
+                    app:cpb_progressbar_color="@color/green"/>
+
+                <TextView
+                    android:id="@+id/progress_diet_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:text="64%"
+                    android:textSize="18sp"
+                    android:textColor="@android:color/black"/>
+            </FrameLayout>
 
             <!-- Exercise -->
-            <com.mikhaellopez.circularprogressbar.CircularProgressBar
-                android:id="@+id/progress_exercise"
+            <FrameLayout
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                app:cpb_progress="90"
-                app:cpb_progress_max="100"
-                app:cpb_progressbar_width="10dp"
-                app:cpb_background_progressbar_width="10dp"
-                app:cpb_background_progressbar_color="@color/gray"
-                app:cpb_progressbar_color="@color/blue"/>
+                android:layout_weight="1">
+
+                <com.mikhaellopez.circularprogressbar.CircularProgressBar
+                    android:id="@+id/progress_exercise"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:cpb_progress="90"
+                    app:cpb_progress_max="100"
+                    app:cpb_progressbar_width="10dp"
+                    app:cpb_background_progressbar_width="10dp"
+                    app:cpb_background_progressbar_color="@color/gray"
+                    app:cpb_progressbar_color="@color/blue"/>
+
+                <TextView
+                    android:id="@+id/progress_exercise_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:text="90%"
+                    android:textSize="18sp"
+                    android:textColor="@android:color/black"/>
+            </FrameLayout>
         </LinearLayout>
     </LinearLayout>
 
@@ -108,6 +150,7 @@
             android:textSize="18sp"
             android:textColor="@android:color/black"/>
 
+        <!-- List of suggestions (RecyclerView) -->
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/suggestions_list"
             android:layout_width="match_parent"
