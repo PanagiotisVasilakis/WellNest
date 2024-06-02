@@ -1,6 +1,7 @@
 package myapplication.pages.DailyState;
 
 import android.content.ContentValues;
+import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
@@ -23,14 +24,26 @@ public class EditCategoryProgressFragment extends Fragment {
         healthProgramC = healthProgram.new HealthProgramClass();
     }
 
+    public EditCategoryProgressFragment(DailyStateDb dbHelper) {
+        this.dbHelper = dbHelper;
+    }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        dbHelper = new DailyStateDb(getContext());
+        if (dbHelper == null) {
+            dbHelper = new DailyStateDb(getContext());
+        }
         return inflater.inflate(R.layout.fragment_edit_category_progress, container, false);
     }
 
     public class Subcategory {
+
+        private Context context;
+
+        public Subcategory(Context context) {
+            this.context = context;
+        }
 
         public void getSubcategory(String subcategoryName) {
             SQLiteDatabase db = dbHelper.getReadableDatabase();
@@ -82,17 +95,13 @@ public class EditCategoryProgressFragment extends Fragment {
 
         public void showProgressUpdated() {
             // Display a message indicating that progress has been updated
-            Toast.makeText(getContext(), "Progress Updated!", Toast.LENGTH_SHORT).show();
+            Toast.makeText(context, "Progress Updated!", Toast.LENGTH_SHORT).show();
         }
 
         public void showGoalReached() {
             // Display a message indicating that the goal has been reached
-            Toast.makeText(getContext(), "Goal Reached!", Toast.LENGTH_SHORT).show();
+            Toast.makeText(context, "Goal Reached!", Toast.LENGTH_SHORT).show();
         }
-    }
-
-    public class ProgressUpdated {
-        // Operations for Edit Category Progress
     }
 
     public class GoalReached {

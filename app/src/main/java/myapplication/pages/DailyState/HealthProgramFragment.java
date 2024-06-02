@@ -7,15 +7,12 @@ import android.os.Bundle;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.mikhaellopez.circularprogressbar.CircularProgressBar;
-
 import database.DailyStateDb;
 import myapplication.pages.R;
 
@@ -56,8 +53,8 @@ public class HealthProgramFragment extends Fragment {
     }
 
     private void updateProgress(String category, int percentage) {
-        EditCategoryProgressFragment editFragment = new EditCategoryProgressFragment();
-        EditCategoryProgressFragment.Subcategory subcategory = editFragment.new Subcategory();
+        EditCategoryProgressFragment editFragment = new EditCategoryProgressFragment(dbHelper);
+        EditCategoryProgressFragment.Subcategory subcategory = editFragment.new Subcategory(getContext());
         subcategory.saveProgress(category, percentage);
     }
 
@@ -115,8 +112,8 @@ public class HealthProgramFragment extends Fragment {
 
         public void showProgram(String programName) {
             getHealthProgram(programName);
+            // Display the program details to the user
         }
-
         public void showSubcategory() {
         }
     }
