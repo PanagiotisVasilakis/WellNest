@@ -16,7 +16,7 @@
 
     <fragment
         android:id="@+id/nav_daily_state"
-        android:name="myapplication.pages.HealthProgramFragment"
+        android:name="myapplication.pages.DailyState.HealthProgramFragment"
         android:label="Daily State"
         tools:layout="@layout/fragment_health_program" />
 
@@ -51,16 +51,24 @@
         tools:layout="@layout/fragment_edit_pharmacy_list" />
 
     <fragment
-        android:id="@+id/nav_checkup"
-        android:name="myapplication.pages.CheckupFragment"
-        android:label="Checkup"
-        tools:layout="@layout/fragment_checkup" />
-
-    <fragment
         android:id="@+id/nav_add_doctor"
         android:name="myapplication.pages.Doctors.AddDoctorFragment"
         android:label="Add Doctor"
         tools:layout="@layout/fragment_add_doctor" />
+
+    <fragment
+        android:id="@+id/checkupFragment"
+        android:name="myapplication.pages.CheckUps.CheckupFragment"
+        android:label="CheckupFragment">
+        <action
+            android:id="@+id/action_checkupFragment_to_examinationFragment"
+            app:destination="@id/examinationFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/examinationFragment"
+        android:name="myapplication.pages.CheckUps.ExaminationFragment"
+        android:label="ExaminationFragment" />
 
     <action
         android:id="@+id/action_nav_daily_state_to_nav_medical_assist"
@@ -76,7 +84,7 @@
         app:destination="@id/nav_edit_pharmacy_list" />
     <action
         android:id="@+id/action_nav_medical_assist_to_nav_checkup"
-        app:destination="@id/nav_checkup" />
+        app:destination="@id/checkupFragment" />
     <action
         android:id="@+id/action_medical_assist_to_add_doctor"
         app:destination="@id/nav_add_doctor" />
