@@ -1,11 +1,15 @@
 package myapplication.pages.DailyState;
 
+import static android.content.ContentValues.TAG;
+
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import androidx.fragment.app.Fragment;
+
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -95,7 +99,7 @@ public class EditCategoryProgressFragment extends Fragment {
 
         public void showProgressUpdated() {
             // Display a message indicating that progress has been updated
-            Toast.makeText(context, "Progress Updated!", Toast.LENGTH_SHORT).show();
+            Log.d(TAG, "showProgressUpdated: ");
         }
 
         public void showGoalReached() {
