@@ -17,4 +17,8 @@
     <color name="item_background">#C8E6C9</color> <!-- Slightly darker green for items -->
     <color name="text_color">#000000</color> <!-- Black text color -->
     <color name="item_selected_background">#AED581</color> <!-- Highlight color for selected item -->
+    <color name="gray">#808080</color> <!-- Gray color -->
+    <color name="blue">#0000FF</color> <!-- Blue color -->
+    <color name="red">#FF0000</color> <!-- Red color -->
+    <color name="green">#008000</color> <!-- Green color -->
 </resources>

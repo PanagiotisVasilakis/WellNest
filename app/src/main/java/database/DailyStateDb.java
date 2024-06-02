@@ -4,6 +4,7 @@ import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
+// SQLite Database Helper Class
 public class DailyStateDb extends SQLiteOpenHelper {
 
     private static final String DATABASE_NAME = "DailyState.db";
@@ -28,7 +29,8 @@ public class DailyStateDb extends SQLiteOpenHelper {
                     COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
                     COLUMN_NAME + " TEXT, " +
                     COLUMN_DESCRIPTION + " TEXT, " +
-                    COLUMN_BMI + " REAL);";
+                    COLUMN_BMI + " REAL, " +
+                    "progress INTEGER DEFAULT 0);"; // Assuming progress column
 
     public DailyStateDb(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -38,10 +40,9 @@ public class DailyStateDb extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db) {
         db.execSQL(TABLE_HEALTH_PROGRAM_CREATE);
         // Insert example health programs
-        db.execSQL("INSERT INTO " + TABLE_HEALTH_PROGRAM + " (" + COLUMN_NAME + ", " + COLUMN_DESCRIPTION + ") VALUES ('Food Pyramid', 'A balanced diet with portions of each food group');");
-        db.execSQL("INSERT INTO " + TABLE_HEALTH_PROGRAM + " (" + COLUMN_NAME + ", " + COLUMN_DESCRIPTION + ") VALUES ('Keto', 'A high-fat, low-carbohydrate diet');");
-        db.execSQL("INSERT INTO " + TABLE_HEALTH_PROGRAM + " (" + COLUMN_NAME + ", " + COLUMN_DESCRIPTION + ") VALUES ('Vegan', 'A plant-based diet excluding animal products');");
-        // Insert other initial data
+        db.execSQL("INSERT INTO " + TABLE_HEALTH_PROGRAM + " (" + COLUMN_NAME + ", " + COLUMN_DESCRIPTION + ") VALUES ('Food Pyramid', 'Eat Most: Grains (6-11 servings/day). Eat More: Vegetables (3-5 servings/day) and Fruits (2-4 servings/day). Eat Moderately: Dairy (2-3 servings/day) and Protein (2-3 servings/day). Eat Least: Fats, oils, and sweets.');");
+        db.execSQL("INSERT INTO " + TABLE_HEALTH_PROGRAM + " (" + COLUMN_NAME + ", " + COLUMN_DESCRIPTION + ") VALUES ('Keto', 'Allowed Foods: Meats, fatty fish, eggs, butter, cheese, nuts, seeds, healthy oils, avocados, low-carb vegetables. Avoided Foods: Sugary foods, grains, fruit, beans, root vegetables, low-fat products, unhealthy fats, alcohol, sugar-free diet foods.');");
+        db.execSQL("INSERT INTO " + TABLE_HEALTH_PROGRAM + " (" + COLUMN_NAME + ", " + COLUMN_DESCRIPTION + ") VALUES ('Vegan', 'Allowed Foods: Fruits, vegetables, nuts, seeds, legumes, whole grains, plant-based oils, fortified plant milks and yogurts. Avoided Foods: All meat, dairy products, eggs, animal-derived ingredients like gelatin and honey.');");
     }
 
     @Override
@@ -50,4 +51,5 @@ public class DailyStateDb extends SQLiteOpenHelper {
         onCreate(db);
     }
 }
+
 
