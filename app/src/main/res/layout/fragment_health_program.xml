@@ -1,13 +1,160 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    tools:context=".DailyState.HealthProgramFragment">
 
-    <TextView
-        android:id="@+id/text_daily_state"
-        android:layout_width="wrap_content"
+    <!-- Header -->
+    <LinearLayout
+        android:id="@+id/header"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Daily State"
-        android:textSize="20sp"
-        tools:ignore="HardcodedText" />
+        android:orientation="horizontal"
+        android:padding="16dp"
+        android:background="@color/purple_700"
+        android:gravity="center_vertical">
+
+        <TextView
+            android:id="@+id/title"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Daily State"
+            android:textSize="20sp"
+            android:textColor="@android:color/white"
+            android:gravity="center"/>
+    </LinearLayout>
+
+    <!-- Health Performance Section -->
+    <LinearLayout
+        android:id="@+id/health_performance_section"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_below="@id/header"
+        android:padding="16dp">
+
+        <TextView
+            android:id="@+id/health_performance_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Health Performance"
+            android:textSize="18sp"
+            android:textColor="@android:color/black"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center"
+            android:padding="16dp">
+
+            <!-- Daily Progress -->
+            <FrameLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1">
+
+                <com.mikhaellopez.circularprogressbar.CircularProgressBar
+                    android:id="@+id/progress_daily"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:cpb_progress="40"
+                    app:cpb_progress_max="100"
+                    app:cpb_progressbar_width="10dp"
+                    app:cpb_background_progressbar_width="10dp"
+                    app:cpb_background_progressbar_color="@color/gray"
+                    app:cpb_progressbar_color="@color/red"/>
+
+                <TextView
+                    android:id="@+id/progress_daily_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:text="40%"
+                    android:textSize="18sp"
+                    android:textColor="@android:color/black"/>
+            </FrameLayout>
+
+            <!-- Diet -->
+            <FrameLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1">
+
+                <com.mikhaellopez.circularprogressbar.CircularProgressBar
+                    android:id="@+id/progress_diet"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:cpb_progress="64"
+                    app:cpb_progress_max="100"
+                    app:cpb_progressbar_width="10dp"
+                    app:cpb_background_progressbar_width="10dp"
+                    app:cpb_background_progressbar_color="@color/gray"
+                    app:cpb_progressbar_color="@color/green"/>
+
+                <TextView
+                    android:id="@+id/progress_diet_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:text="64%"
+                    android:textSize="18sp"
+                    android:textColor="@android:color/black"/>
+            </FrameLayout>
+
+            <!-- Exercise -->
+            <FrameLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1">
+
+                <com.mikhaellopez.circularprogressbar.CircularProgressBar
+                    android:id="@+id/progress_exercise"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:cpb_progress="90"
+                    app:cpb_progress_max="100"
+                    app:cpb_progressbar_width="10dp"
+                    app:cpb_background_progressbar_width="10dp"
+                    app:cpb_background_progressbar_color="@color/gray"
+                    app:cpb_progressbar_color="@color/blue"/>
+
+                <TextView
+                    android:id="@+id/progress_exercise_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:text="90%"
+                    android:textSize="18sp"
+                    android:textColor="@android:color/black"/>
+            </FrameLayout>
+        </LinearLayout>
+    </LinearLayout>
+
+    <!-- Suggestions Section -->
+    <LinearLayout
+        android:id="@+id/suggestions_section"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_below="@id/health_performance_section"
+        android:padding="16dp">
+
+        <TextView
+            android:id="@+id/suggestions_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Suggestions"
+            android:textSize="18sp"
+            android:textColor="@android:color/black"/>
+
+        <!-- List of suggestions (RecyclerView) -->
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/suggestions_list"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+    </LinearLayout>
+
 </RelativeLayout>

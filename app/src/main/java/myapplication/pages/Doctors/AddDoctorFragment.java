@@ -1,5 +1,7 @@
 package myapplication.pages.Doctors;
 
+import static myapplication.pages.UserTypes.RoleSelectionActivity.Id;
+
 import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -17,6 +19,7 @@ import android.widget.SearchView;
 import android.widget.TextView;
 import database.DoctorsDb;
 import database.DoctorsDb.Doctor;
+import database.PatientInfoDb;
 import myapplication.pages.R;
 import java.util.ArrayList;
 import java.util.List;
@@ -27,7 +30,7 @@ public class AddDoctorFragment extends Fragment {
     private static DoctorsDb dbHelper;
     private DoctorAdapter doctorAdapter;
     private List<Doctor> doctorList;
-
+    private PatientInfoDb patientInfoDb;
     public AddDoctorFragment() {
         // Required empty public constructor
     }
@@ -38,6 +41,7 @@ public class AddDoctorFragment extends Fragment {
                              @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_add_doctor, container, false);
 
+        patientInfoDb = new PatientInfoDb(getActivity());
         dbHelper = new DoctorsDb(getActivity());
         doctorList = new ArrayList<>();
         doctorAdapter = new DoctorAdapter(doctorList, this::showDoctorProfile);
@@ -93,7 +97,7 @@ public class AddDoctorFragment extends Fragment {
         View popupView = (View) doctorProfile.getDoctorInfo(doctor);
         PopupWindow popupWindow = new PopupWindow(popupView, ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT, true);
         popupWindow.showAtLocation(getView(), Gravity.CENTER, 0, 0);
-        doctorProfile.addDoctor(popupView, popupWindow);
+        doctorProfile.addDoctor(popupView, popupWindow, doctor);
     }
 
     // 19. Doctor Profile class
@@ -118,9 +122,15 @@ public class AddDoctorFragment extends Fragment {
             return popupView;
         }
 
-        public void addDoctor(View popupView, PopupWindow popupWindow) {
+        public void addDoctor(View popupView, PopupWindow popupWindow, Doctor doctor) {
             Button btnAddDoctor = popupView.findViewById(R.id.btnAddDoctor);
-            btnAddDoctor.setOnClickListener(v -> popupWindow.dismiss());
+
+            btnAddDoctor.setOnClickListener(v -> {
+                PatientInfoDb.PatientInfo patientInfo = patientInfoDb.getPatientById(Id);
+                long patientId = patientInfo.getId();
+                dbHelper.addDoctorToPatient(doctor, patientId); // currentPatientId should be the id of the current patient
+                popupWindow.dismiss();
+            });
         }
     }
 }
